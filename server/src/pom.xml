@@ -11,7 +11,7 @@
 	<groupId>com.ecotrack</groupId>
 	<artifactId>ecotrack</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecotrack</name>
+	<name>EcoTrack</name>
 	<description>🌍 Smart web application to track and reduce your carbon footprint on a daily basis.</description>
 	<url/>
 	<licenses>
