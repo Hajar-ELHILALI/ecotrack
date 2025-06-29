@@ -1,4 +1,4 @@
-package com.ecotrack.ecotrack;
+package EcoTrack.server;
 
 public class SheduledTasks {
 }
