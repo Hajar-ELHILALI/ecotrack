@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "EmissionFactors")
+@Table(name = "emission_factors")
 public class EmissionFactor {
 
     @Id

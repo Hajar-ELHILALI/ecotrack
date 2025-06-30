@@ -15,7 +15,7 @@ public class Country {
     private String code_iso;
 
     @OneToMany(mappedBy = "country")
-    private Set<Country> coutries = new HashSet<>();
+    private Set<EmissionFactor> emissionFactors = new HashSet<>();
 
     // user-country
 
