@@ -1,18 +1,26 @@
 package EcoTrack.server.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name="households")
 public class Household {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int numero;
+    private Long id;
+    private int number;
     private String street;
     private String city;
 
@@ -20,4 +28,7 @@ public class Household {
     private Set<UserActivity> userActivities = new HashSet<>();
 
     //user-HouseHold
+    @OneToMany(mappedBy = "houseHold")
+    private Set<User> users = new HashSet<>();
+
 }
