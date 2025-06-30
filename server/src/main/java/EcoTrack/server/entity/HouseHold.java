@@ -14,8 +14,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="house_holds")
-public class HouseHold {
+@Table(name="households")
+public class Household {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class HouseHold {
     private String street;
     private String city;
 
-    @OneToMany(mappedBy = "houseHold")
+    @OneToMany(mappedBy = "household")
     private Set<UserActivity> userActivities = new HashSet<>();
 
     //user-HouseHold

@@ -18,8 +18,8 @@ public class UserGoal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date date_debut;
-    private Date date_fin;
+    private Date startDate;
+    private Date endDate;
     private boolean goalAchieved;
     private Double emissionTarget;
 

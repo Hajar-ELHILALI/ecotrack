@@ -14,7 +14,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_activities")
+@Table(name = "userActivities")
 public class UserActivity {
 
     @Id
@@ -34,7 +34,7 @@ public class UserActivity {
 
     @ManyToOne
     @JoinColumn(name = "house_hold_id")
-    private HouseHold houseHold;
+    private Household household;
 
     //user-UserActivity
     @ManyToOne

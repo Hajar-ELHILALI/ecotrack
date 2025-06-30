@@ -20,7 +20,7 @@ public class UserReview {
 
     private Double rating;
     private String comment;
-    private Date date_review;
+    private Date sentAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

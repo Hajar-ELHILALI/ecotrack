@@ -14,7 +14,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "historic_advice")
+@Table(name = "adviceHistories")
 public class HistoricAdvice {
 
     @Id
