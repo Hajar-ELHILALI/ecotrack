@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "user_activities")
+@Table(name = "userActivities")
 public class UserActivity {
 
     @Id
@@ -20,7 +20,7 @@ public class UserActivity {
     private ActivityType activityType;
 
     @ManyToOne
-    private HouseHold houseHold;
+    private Household household;
 
     //user-UserActivity
 
