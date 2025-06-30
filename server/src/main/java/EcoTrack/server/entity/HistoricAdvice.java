@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "historic_advice")
+@Table(name = "adviceHistories")
 public class HistoricAdvice {
 
     @Id
@@ -13,7 +13,7 @@ public class HistoricAdvice {
     private int id;
     private boolean isRead;
     private boolean isApplied;
-    private Date date_envoi;
+    private Date sentAt;
 
     @ManyToOne
     private Advice advice;
