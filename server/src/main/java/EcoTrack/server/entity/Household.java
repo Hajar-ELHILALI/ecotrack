@@ -27,8 +27,8 @@ public class Household {
     @OneToMany(mappedBy = "household")
     private Set<UserActivity> userActivities = new HashSet<>();
 
-    //user-HouseHold
-    @OneToMany(mappedBy = "houseHold")
+    //user-Household
+    @OneToMany(mappedBy = "household")
     private Set<User> users = new HashSet<>();
 
 }
