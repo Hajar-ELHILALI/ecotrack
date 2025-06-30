@@ -26,7 +26,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "foyer_id")
     private Household household;
 
@@ -37,4 +37,5 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+    */
 }
