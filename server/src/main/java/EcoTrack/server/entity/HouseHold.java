@@ -24,11 +24,11 @@ public class HouseHold {
     private String street;
     private String city;
 
-    @OneToMany(mappedBy = "household")
+    @OneToMany(mappedBy = "houseHold")
     private Set<UserActivity> userActivities = new HashSet<>();
 
     //user-HouseHold
-    @OneToMany(mappedBy = "household")
+    @OneToMany(mappedBy = "houseHold")
     private Set<User> users = new HashSet<>();
 
 }

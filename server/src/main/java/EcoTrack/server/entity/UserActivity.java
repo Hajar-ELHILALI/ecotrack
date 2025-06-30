@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.enums.SharingType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,9 @@ public class UserActivity {
     private double quantity;
     private Date date;
     //enum de type de partage
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sharing_type", length = 20)
+    private SharingType sharingType;
     private int nbr_personnes;
 
     @ManyToOne
