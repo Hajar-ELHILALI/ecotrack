@@ -33,7 +33,7 @@ public class UserActivity {
     private ActivityType activityType;
 
     @ManyToOne
-    @JoinColumn(name = "house_hold_id")
+    @JoinColumn(name = "household_id")
     private Household household;
 
     //user-UserActivity
