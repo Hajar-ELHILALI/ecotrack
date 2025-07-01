@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,4 +20,7 @@ public class Role implements GrantedAuthority {
 
     @NotNull
     private String authority;
+
+    @OneToMany(mappedBy = "role")
+    private ArrayList<User> users = new ArrayList<>();
 }

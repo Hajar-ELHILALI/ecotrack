@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -37,4 +39,15 @@ public class User {
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private ArrayList<UserGoal> goals = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private ArrayList<UserReview> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private ArrayList<Notification> notifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private ArrayList<Score> scores = new ArrayList<>();
 }
