@@ -27,7 +27,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "household_id")
-    private HouseHold household;
+    private Household household;
 
     @ManyToOne
     @JoinColumn(name = "badge_id")
