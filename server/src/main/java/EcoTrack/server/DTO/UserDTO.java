@@ -12,21 +12,19 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-    @NotNull
+    //@NotNull : id peut etre null en cas de creation user envoi les donnees server genere id
     private Long id;
 
     @NotNull
     @Email
     private String email;
 
-    @NotNull
-    private String password_hash;
 
     private String user_name;
-    private Role role;
-    private Household household;
-    private Badge badge;
-    private Country country;
+    private Long roleId;
+    private Long householdId;
+    private Long badgeId;
+    private Long countryId;
     private ArrayList<UserGoal> goals = new ArrayList<>();
     private ArrayList<UserReview> reviews = new ArrayList<>();
     private ArrayList<Notification> notifications = new ArrayList<>();
@@ -36,11 +34,11 @@ public class UserDTO {
         setId(user.getId());
         setEmail(user.getEmail());
         setUser_name(user.getUser_name());
-        setPassword_hash(user.getPassword_hash());
-        setCountry(user.getCountry());
-        setRole(user.getRole());
-        setHousehold(user.getHousehold());
-        setBadge(user.getBadge());
+
+        setCountryId(user.getCountry().getId());
+        setRoleId(user.getRole().getId());
+        setHouseholdId(user.getHousehold().getId());
+        setBadgeId(user.getBadge().getId());
         setReviews(user.getReviews());
         setNotifications(user.getNotifications());
         setScores(user.getScores());
