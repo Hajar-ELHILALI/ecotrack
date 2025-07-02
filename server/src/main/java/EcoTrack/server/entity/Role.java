@@ -21,6 +21,9 @@ public class Role implements GrantedAuthority {
     @NotNull
     private String authority;
 
-    @OneToMany(mappedBy = "role")
-    private ArrayList<User> users = new ArrayList<>();
+    /*@OneToMany(mappedBy = "role")
+    private ArrayList<User> users = new ArrayList<>();*/
+
+    /* pas necessaire de savoir la liste des users qui ont un role specifique,
+     mais c'est necessaire de connaitre quel role est associe au user*/
 }

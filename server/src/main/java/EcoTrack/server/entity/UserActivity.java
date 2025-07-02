@@ -2,6 +2,7 @@ package EcoTrack.server.entity;
 
 import EcoTrack.server.enums.SharingType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,10 @@ public class UserActivity {
     private Date date;
     //enum de type de partage
     @Enumerated(EnumType.STRING)
-    @Column(name = "sharing_type", length = 20)
+    @Column(name = "sharing_type", length = 20, nullable = false)
     private SharingType sharingType;
-    private int nbr_personnes;
+    @Min(1)
+    private int nbrPersonnes;
 
     @ManyToOne
     @JoinColumn(name = "activity_type_id", nullable = false)
@@ -38,7 +40,7 @@ public class UserActivity {
 
     //user-UserActivity
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
 }
