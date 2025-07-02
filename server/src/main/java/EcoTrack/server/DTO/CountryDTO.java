@@ -2,6 +2,7 @@ package EcoTrack.server.DTO;
 
 import EcoTrack.server.entity.Country;
 import EcoTrack.server.entity.EmissionFactor;
+import EcoTrack.server.entity.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,11 +23,13 @@ public class CountryDTO {
     @NotNull
     private String code_iso;
 
+    private Set<User> users  =new HashSet<>();
     private Set<EmissionFactor> emissionFactors = new HashSet<>();
     public CountryDTO(Country country){
         setId(country.getId());
         setName(country.getName());
         setCode_iso(country.getCode_iso());
         setEmissionFactors(country.getEmissionFactors());
+        setUsers(country.getUsers());
     }
 }

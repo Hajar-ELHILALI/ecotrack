@@ -28,6 +28,7 @@ public class Country {
     private Set<EmissionFactor> emissionFactors = new HashSet<>();
 
     // user-country
-
+    @OneToMany(mappedBy = "country")
+    private Set<User> users = new HashSet<>();
 
 }
