@@ -25,15 +25,14 @@ public class HouseholdDTO {
     @NotNull
     private String city;
 
-    private Set<UserActivity> userActivities = new HashSet<>();
-    private Set<User> users = new HashSet<>();
+
+
 
     public HouseholdDTO(Household household) {
         setId(household.getId());
         setNumber(household.getNumber());
         setStreet(household.getStreet());
         setCity(household.getCity());
-        setUserActivities(household.getUserActivities());
-        setUsers(household.getUsers());
+
     }
 }

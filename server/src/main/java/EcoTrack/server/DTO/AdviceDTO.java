@@ -23,15 +23,15 @@ public class AdviceDTO {
     private String content;
 
     @NotNull
-    private Date generatioDate;
+    private Date generationDate;
     @NotNull
     private String type;
-    private Set<HistoricAdvice> historicAdvice = new HashSet<>();
+
     public AdviceDTO(Advice advice){
         setId(advice.getId());
         setContent(advice.getContent());
         setType(advice.getType());
-        setGeneratioDate(advice.getGenerationDate());
-        setHistoricAdvice(advice.getHistoricAdvice());
+        setGenerationDate(advice.getGenerationDate());
+
     }
 }

@@ -24,12 +24,12 @@ public class CountryDTO {
     private String code_iso;
 
     private Set<User> users  =new HashSet<>();
-    private Set<EmissionFactor> emissionFactors = new HashSet<>();
+
     public CountryDTO(Country country){
         setId(country.getId());
         setName(country.getName());
         setCode_iso(country.getCode_iso());
-        setEmissionFactors(country.getEmissionFactors());
+
         setUsers(country.getUsers());
     }
 }

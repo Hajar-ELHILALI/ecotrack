@@ -20,11 +20,10 @@ public class CategoryDTO {
 
     @NotNull
     private String name;
-    private Set<ActivityType> activityTypes = new HashSet<>();
+
 
     public CategoryDTO(Category category) {
         setId(category.getId());
         setName(category.getName());
-        setActivityTypes(category.getActivityTypes());
     }
 }

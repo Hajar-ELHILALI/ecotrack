@@ -27,13 +27,13 @@ public class ActivityTypeDTO {
     @NotNull
     private Long CategoryId;
 
-    private Set<UserActivity> userActivities = new HashSet<>();
+
 
     public ActivityTypeDTO(ActivityType activityType){
         setId(activityType.getId());
         setName(activityType.getName());
         setUnit(activityType.getUnit());
         setCategoryId(activityType.getCategory().getId());
-        setUserActivities(activityType.getUserActivities());
+
     }
 }
