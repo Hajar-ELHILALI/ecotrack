@@ -2,6 +2,7 @@ package EcoTrack.server.DTO;
 
 import EcoTrack.server.entity.UserActivity;
 import EcoTrack.server.enums.SharingType;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,8 @@ public class UserActivityDTO {
     @NotNull
     private Date date;
 
-    private int nbr_personnes;
+    @Min(1)
+    private int nbrPersonnes;
 
     @NotNull
     private SharingType sharingType;
@@ -39,9 +41,17 @@ public class UserActivityDTO {
         setId(userActivity.getId());
         setQuantity(userActivity.getQuantity());
         setDate(userActivity.getDate());
-        setNbr_personnes(userActivity.getNbr_personnes());
-        setUserId(userActivity.getUser().getId());
-        setHouseholdId(userActivity.getUser().getId());
+        setNbrPersonnes(userActivity.getNbrPersonnes());
+        if(userActivity.getSharingType() == SharingType.HOUSEHOLD){
+
+            setHouseholdId(userActivity.getHousehold().getId());
+            setUserId(null);
+        }else{
+
+            setUserId(userActivity.getUser().getId());
+            setHouseholdId(null);
+        }
+
         setActivityTypeId(userActivity.getActivityType().getId());
         setSharingType(userActivity.getSharingType());
     }
