@@ -21,9 +21,12 @@ public class UserDTO {
 
 
     private String user_name;
+    @NotNull
     private Long roleId;
+    @NotNull
     private Long householdId;
     private Long badgeId;
+    @NotNull
     private Long countryId;
     private ArrayList<UserGoal> goals = new ArrayList<>();
     private ArrayList<UserReview> reviews = new ArrayList<>();
