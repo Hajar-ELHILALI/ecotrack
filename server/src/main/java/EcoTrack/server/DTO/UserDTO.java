@@ -20,7 +20,7 @@ public class UserDTO {
     private String email;
 
 
-    private String user_name;
+    private String userName;
     @NotNull
     private Long roleId;
     @NotNull
@@ -33,7 +33,7 @@ public class UserDTO {
     public UserDTO(User user) {
         setId(user.getId());
         setEmail(user.getEmail());
-        setUser_name(user.getUser_name());
+        setUserName(user.getUserName());
 
         setCountryId(user.getCountry().getId());
         setRoleId(user.getRole().getId());
