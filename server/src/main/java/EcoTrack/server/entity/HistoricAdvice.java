@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.HistoricAdviceDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +33,12 @@ public class HistoricAdvice {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public HistoricAdvice(HistoricAdviceDTO historicAdviceDTO) {
+        setRead(historicAdviceDTO.isRead());
+        setApplied(historicAdviceDTO.isApplied());
+        setSentDate(historicAdviceDTO.getSentDate());
+
+    }
 
 }

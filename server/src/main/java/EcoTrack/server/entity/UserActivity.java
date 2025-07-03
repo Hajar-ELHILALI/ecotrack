@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.enums.SharingType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -43,4 +44,10 @@ public class UserActivity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public UserActivity(UserActivityDTO userActivityDTO){
+        setDate(userActivityDTO.getDate());
+        setNbrPersonnes(userActivityDTO.getNbrPersonnes());
+        setQuantity(userActivityDTO.getQuantity());
+        setSharingType(userActivityDTO.getSharingType());
+    }
 }

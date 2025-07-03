@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.ActivityTypeDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,4 +36,11 @@ public class ActivityType {
 
     @OneToMany(mappedBy = "activityType")
     private Set<UserActivity> userActivities = new HashSet<>();
+
+    public ActivityType(ActivityTypeDTO activityTypeDTO) {
+        setName(activityTypeDTO.getName());
+        setUnit(activityTypeDTO.getUnit());
+        setUserActivities(new HashSet<>());
+        setEmissionFactors(new HashSet<>());
+    }
 }

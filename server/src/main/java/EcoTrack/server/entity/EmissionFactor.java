@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.EmissionFactorDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -33,4 +34,9 @@ public class EmissionFactor {
     @ManyToOne
     @JoinColumn(name = "activity_type_id", nullable = false)
     private ActivityType activityType;
+
+    public EmissionFactor(EmissionFactorDTO emissionFactorDTO){
+        setFactor(emissionFactorDTO.getFactor());
+        setSource(emissionFactorDTO.getSource());
+    }
 }
