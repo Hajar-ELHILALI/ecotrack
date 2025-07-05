@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.CategoryDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,4 +27,9 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<ActivityType> activityTypes = new HashSet<>();
+
+    public Category(CategoryDTO categoryDTO) {
+        setName(categoryDTO.getName());
+        setActivityTypes(new HashSet<>());
+    }
 }

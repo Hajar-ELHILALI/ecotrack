@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.CountryDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class Country {
     private Long id;
     private String name;
     @NotNull
-    private String code_iso;
+    private String codeIso;
 
     @OneToMany(mappedBy = "country")
     private Set<EmissionFactor> emissionFactors = new HashSet<>();
@@ -30,5 +31,12 @@ public class Country {
     // user-country
     @OneToMany(mappedBy = "country")
     private Set<User> users = new HashSet<>();
+
+    public Country(CountryDTO countryDTO) {
+        setName(countryDTO.getName());
+        setCodeIso(countryDTO.getCodeIso());
+        setUsers(new HashSet<>());
+        setEmissionFactors(new HashSet<>());
+    }
 
 }

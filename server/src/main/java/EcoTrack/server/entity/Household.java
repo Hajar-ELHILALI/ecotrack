@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.HouseholdDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,4 +36,12 @@ public class Household {
     @OneToMany(mappedBy = "household")
     private Set<User> users = new HashSet<>();
 
+
+    public Household(HouseholdDTO householdDTO){
+        setNumber(householdDTO.getNumber());
+        setStreet(householdDTO.getStreet());
+        setCity(householdDTO.getCity());
+        setUsers(new HashSet<>());
+        setUserActivities(new HashSet<>());
+    }
 }

@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,9 +20,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user_name;
+    private String userName;
     private String email;
-    private String password_hash;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -50,4 +51,13 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private ArrayList<Score> scores = new ArrayList<>();
+
+    public User(UserDTO userDTO) {
+        setEmail(userDTO.getEmail());
+        setUserName(userDTO.getUserName());
+        setGoals(new ArrayList<>());
+        setNotifications(new ArrayList<>());
+        setScores(new ArrayList<>());
+        setReviews(new ArrayList<>());
+    }
 }

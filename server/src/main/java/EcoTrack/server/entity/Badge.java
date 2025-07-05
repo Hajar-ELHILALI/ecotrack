@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.BadgeDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,14 @@ public class Badge {
 
     @NotNull
     private String label;
+    @NotNull
+    private String description;
 
     @OneToMany(mappedBy = "badge")
     private ArrayList<User> users = new ArrayList<>();
+
+    public Badge(BadgeDTO badgeDTO) {
+        setLabel(badgeDTO.getLabel());
+        setUsers(new ArrayList<>());
+    }
 }
