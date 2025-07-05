@@ -23,6 +23,8 @@ public class Badge {
 
     @NotNull
     private String label;
+    @NotNull
+    private String description;
 
     @OneToMany(mappedBy = "badge")
     private ArrayList<User> users = new ArrayList<>();
