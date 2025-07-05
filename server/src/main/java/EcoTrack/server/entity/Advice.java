@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.AdviceDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,4 +32,11 @@ public class Advice {
 
     @OneToMany(mappedBy = "advice")
     private Set<HistoricAdvice> historicAdvice = new HashSet<>();
+
+    public Advice(AdviceDTO adviceDTO){
+        setType(adviceDTO.getType());
+        setContent(adviceDTO.getContent());
+        setGenerationDate(adviceDTO.getGenerationDate());
+        setHistoricAdvice(new HashSet<>());
+    }
 }

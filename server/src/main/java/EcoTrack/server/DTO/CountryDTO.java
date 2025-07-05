@@ -21,15 +21,14 @@ public class CountryDTO {
     @NotNull
     private String name;
     @NotNull
-    private String code_iso;
+    private String codeIso;
 
-    private Set<User> users  =new HashSet<>();
+
 
     public CountryDTO(Country country){
         setId(country.getId());
         setName(country.getName());
-        setCode_iso(country.getCode_iso());
+        setCodeIso(country.getCodeIso());
 
-        setUsers(country.getUsers());
     }
 }
