@@ -1,13 +1,15 @@
 package EcoTrack.server.entity;
 
 import EcoTrack.server.DTO.HistoricAdviceDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @AllArgsConstructor
@@ -23,13 +25,15 @@ public class HistoricAdvice {
     private Long id;
     private boolean isRead;
     private boolean isApplied;
-    private Date sentDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate sentDate;
 
     @ManyToOne
     @JoinColumn(name = "advice_id", nullable = false)
     private Advice advice;
 
-    //user-HistoricAdvice
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

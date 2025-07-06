@@ -1,14 +1,16 @@
 package EcoTrack.server.entity;
 
+
 import EcoTrack.server.DTO.BadgeDTO;
+import EcoTrack.server.enums.BadgeLabel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,16 +23,17 @@ public class Badge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String label;
-    @NotNull
+    @Enumerated(EnumType.STRING)
+    private BadgeLabel label;
+
     private String description;
 
     @OneToMany(mappedBy = "badge")
-    private ArrayList<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
 
     public Badge(BadgeDTO badgeDTO) {
         setLabel(badgeDTO.getLabel());
-        setUsers(new ArrayList<>());
+        setDescription(badgeDTO.getDescription());
+        setUsers(new HashSet<>());
     }
 }

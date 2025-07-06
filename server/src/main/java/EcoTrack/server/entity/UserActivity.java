@@ -17,7 +17,8 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "userActivities")
-public class UserActivity {
+public class
+UserActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

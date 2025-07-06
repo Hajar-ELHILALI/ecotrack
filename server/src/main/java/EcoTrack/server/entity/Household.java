@@ -22,17 +22,17 @@ public class Household {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private int number;
-    @NotNull
+
     private String street;
-    @NotNull
+
     private String city;
 
     @OneToMany(mappedBy = "household")
     private Set<UserActivity> userActivities = new HashSet<>();
 
-    //user-Household
     @OneToMany(mappedBy = "household")
     private Set<User> users = new HashSet<>();
 
