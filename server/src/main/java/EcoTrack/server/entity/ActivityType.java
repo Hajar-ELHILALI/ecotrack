@@ -1,6 +1,7 @@
 package EcoTrack.server.entity;
 
 import EcoTrack.server.DTO.ActivityTypeDTO;
+import EcoTrack.server.enums.UnitType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,9 @@ public class ActivityType {
 
     @NotNull
     private String name;
-    private String unit;
+
+    @Enumerated(EnumType.STRING)
+    private UnitType unit;
 
     @OneToMany(mappedBy = "activityType")
     private Set<EmissionFactor> EmissionFactors = new HashSet<>();

@@ -3,6 +3,7 @@ package EcoTrack.server.DTO;
 import EcoTrack.server.entity.ActivityType;
 import EcoTrack.server.entity.Category;
 import EcoTrack.server.entity.UserActivity;
+import EcoTrack.server.enums.UnitType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class ActivityTypeDTO {
     @NotNull
     private String name;
 
-    private String unit;
+    private UnitType unit;
 
     @NotNull
     private Long CategoryId;

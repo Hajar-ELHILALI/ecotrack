@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class HistoricAdviceDTO {
     private Long id;
-    private Date sentDate;
+    private LocalDate sentDate;
 
     @NotNull
     private Long adviceId;

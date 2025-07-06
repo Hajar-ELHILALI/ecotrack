@@ -1,13 +1,13 @@
 package EcoTrack.server.entity;
 
 import EcoTrack.server.DTO.CategoryDTO;
+import EcoTrack.server.enums.CategoryType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,13 +23,14 @@ public class Category {
     @GeneratedValue(strategy=GenerationType.IDENTITY )
     private Long id;
     @NotNull
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private CategoryType categoryType;
 
     @OneToMany(mappedBy = "category")
     private Set<ActivityType> activityTypes = new HashSet<>();
 
     public Category(CategoryDTO categoryDTO) {
-        setName(categoryDTO.getName());
+        setCategoryType(categoryDTO.getCategoryType());
         setActivityTypes(new HashSet<>());
     }
 }

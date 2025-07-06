@@ -19,7 +19,9 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private QualitativeScore qualitativeScore;
+
     private double totalco2;
 
     @ManyToOne

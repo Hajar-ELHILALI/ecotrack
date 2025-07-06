@@ -1,11 +1,16 @@
 package EcoTrack.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,9 +23,15 @@ public class UserReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double rating;
-    private String comment;
-    private Date sentAt;
+    @Min(1)
+    @Max(5)
+    private Integer rating;// entre 1 (★☆☆☆☆) et 5 (★★★★★)
+
+    private String comment;//optional
+
+    @JsonFormat(pattern = "yyyy-MM-dd")//pour l'API (frontend)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")//pour la conversion automatique ,si on reçoit des dates via formulaire (GET/POST)
+    private LocalDate createdAT;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
