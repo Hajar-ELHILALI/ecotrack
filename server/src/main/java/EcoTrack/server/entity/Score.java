@@ -1,6 +1,7 @@
 package EcoTrack.server.entity;
 
 
+import EcoTrack.server.DTO.ScoreDTO;
 import EcoTrack.server.enums.QualitativeScore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,9 @@ public class Score {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Score(ScoreDTO scoreDTO) {
+        setQualitativeScore(scoreDTO.getQualitativeScore());
+        setTotalco2(scoreDTO.getTotalco2());
+    }
 }
