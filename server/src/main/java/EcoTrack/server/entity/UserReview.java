@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.UserReviewDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -36,4 +37,10 @@ public class UserReview {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public UserReview(UserReviewDTO userReviewDTO) {
+        setComment(userReviewDTO.getComment());
+        setRating(userReviewDTO.getRating());
+        setCreatedAT(userReviewDTO.getCreatedAT());
+    }
 }
