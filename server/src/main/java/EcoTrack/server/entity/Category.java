@@ -2,6 +2,7 @@ package EcoTrack.server.entity;
 
 import EcoTrack.server.DTO.CategoryDTO;
 import EcoTrack.server.enums.CategoryType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Category {
     private CategoryType categoryType;
 
     @OneToMany(mappedBy = "category")
+
     private Set<ActivityType> activityTypes = new HashSet<>();
 
     public Category(CategoryDTO categoryDTO) {
