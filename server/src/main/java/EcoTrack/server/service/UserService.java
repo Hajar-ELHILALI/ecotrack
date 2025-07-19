@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface UserService{
-    ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO);
     void deleteByEmail(String email);
     UserDTO findByEmail(String email);
     UserDTO findById(Long id);
