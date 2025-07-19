@@ -34,7 +34,6 @@ public class UserDTO {
         setId(user.getId());
         setEmail(user.getEmail());
         setUserName(user.getUserName());
-
         setCountryId(user.getCountry().getId());
         setRoleId(user.getRole().getId());
         setHouseholdId(user.getHousehold().getId());
