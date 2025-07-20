@@ -28,7 +28,6 @@ public class Category {
     private CategoryType categoryType;
 
     @OneToMany(mappedBy = "category")
-
     private Set<ActivityType> activityTypes = new HashSet<>();
 
     public Category(CategoryDTO categoryDTO) {
