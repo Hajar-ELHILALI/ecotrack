@@ -2,6 +2,8 @@ package EcoTrack.server.entity;
 
 import EcoTrack.server.DTO.ActivityTypeDTO;
 import EcoTrack.server.enums.UnitType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,14 +32,17 @@ public class ActivityType {
     @Enumerated(EnumType.STRING)
     private UnitType unit;
 
-    @OneToMany(mappedBy = "activityType")
+    @OneToMany(mappedBy = "activityType", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<EmissionFactor> EmissionFactors = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
 
-    @OneToMany(mappedBy = "activityType")
+    @OneToMany(mappedBy = "activityType", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<UserActivity> userActivities = new HashSet<>();
 
     public ActivityType(ActivityTypeDTO activityTypeDTO) {
