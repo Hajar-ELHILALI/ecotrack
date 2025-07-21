@@ -28,13 +28,13 @@ public class DataInitializer implements CommandLineRunner {
         if (categoryRepository.count() == 0) {
             // Creating the default categories
             Category transport =new Category();
-            transport.setCategoryType(CategoryType.Transport);
+            transport.setCategoryType(CategoryType.TRANSPORT);
 
             Category electricity =new Category();
-            electricity.setCategoryType(CategoryType.Electricity);
+            electricity.setCategoryType(CategoryType.ELECTRICITY);
 
             Category nutrition =new Category();
-            nutrition.setCategoryType(CategoryType.Nutrition);
+            nutrition.setCategoryType(CategoryType.NUTRITION);
 
 
             categoryRepository.save(transport);
