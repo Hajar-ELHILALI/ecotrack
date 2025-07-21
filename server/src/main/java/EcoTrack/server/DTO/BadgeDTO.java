@@ -21,6 +21,6 @@ public class BadgeDTO {
     public BadgeDTO(Badge badge){
         setId(badge.getId());
         setLabel(badge.getLabel());
-        setLabel(badge.getLabel());
+        setDescription(badge.getDescription());
     }
 }
