@@ -2,6 +2,7 @@ package EcoTrack.server.controller;
 
 import EcoTrack.server.DTO.ActivityTypeDTO;
 import EcoTrack.server.entity.ActivityType;
+import EcoTrack.server.repository.ActivityTypeRepository;
 import EcoTrack.server.service.ActivityTypeService;
 
 import jakarta.validation.Valid;
@@ -15,14 +16,16 @@ import java.util.List;
 public class ActivityTypeController {
 
     private final ActivityTypeService activityTypeService;
-    public ActivityTypeController(ActivityTypeService activityTypeService) {
-        this.activityTypeService = activityTypeService;
+    private final ActivityTypeRepository activityTypeRepository;
 
+    public ActivityTypeController(ActivityTypeService activityTypeService, ActivityTypeRepository activityTypeRepository) {
+        this.activityTypeService = activityTypeService;
+        this.activityTypeRepository = activityTypeRepository;
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ActivityType>> getAllActivityTypes() {
-        return ResponseEntity.ok(activityTypeService.findAll());
+    public ResponseEntity<List<ActivityTypeDTO>> getAllActivityTypes() {
+        return ResponseEntity.ok(activityTypeService.findAllDTO());
 
     }
 
@@ -31,5 +34,17 @@ public class ActivityTypeController {
         return ResponseEntity.ok(activityTypeService.createDTO(activityTypeDTO));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ActivityTypeDTO> getActivityTypeById(@PathVariable Long id) {
+        return  ResponseEntity.ok(activityTypeService.findDTOById(id));
+    }
 
+    @DeleteMapping("/{id}")
+    public void deleteActivityTypeById(@PathVariable Long id) {
+        activityTypeService.deleteDTOById(id);
+    }
+    @PutMapping("/")
+    public ResponseEntity<ActivityTypeDTO> updateActivityType(@RequestBody @Valid ActivityTypeDTO activityTypeDTO) {
+        return ResponseEntity.ok(activityTypeService.updateDTO(activityTypeDTO));
+    }
 }
