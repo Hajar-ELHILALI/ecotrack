@@ -3,6 +3,7 @@ package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.AdviceDTO;
 import EcoTrack.server.entity.Advice;
+import EcoTrack.server.exception.NotFoundException;
 import EcoTrack.server.repository.AdviceRepository;
 import EcoTrack.server.service.AdviceService;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class AdviceServiceImpl implements AdviceService {
     public AdviceDTO findDTOById(Long id) {
         Optional<Advice> adviceOptional = adviceRepository.findById(id);
         return adviceOptional.map(AdviceDTO::new)
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException("Advice not found with : " + id));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class AdviceServiceImpl implements AdviceService {
     @Override
     public AdviceDTO updateDTO(AdviceDTO adviceDTO) {
         Advice advice = adviceRepository.findById(adviceDTO.getId())
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException("Advice not found with : " + adviceDTO.getId()));
         advice.setContent(adviceDTO.getContent());
         advice.setGenerationDate(adviceDTO.getGenerationDate());
         advice.setType(adviceDTO.getType());
