@@ -60,8 +60,6 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
 
         Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
-        activityType.setName(activityTypeDTO.getName());
-        activityType.setUnit(activityTypeDTO.getUnit());
         activityType.setCategory(category);
 
 
