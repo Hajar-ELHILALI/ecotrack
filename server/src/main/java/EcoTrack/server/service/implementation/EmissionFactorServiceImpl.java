@@ -44,6 +44,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         EmissionFactor emissionFactor = new EmissionFactor(emissionFactorDTO);
         Country country = countryRepository.findById(emissionFactorDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found with : " + emissionFactorDTO.getCountryId()));
+
         emissionFactor.setCountry(country);
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }
@@ -52,6 +53,13 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     public EmissionFactorDTO updateDTO(EmissionFactorDTO emissionFactorDTO) {
         EmissionFactor emissionFactor = emissionFactorRepository.findById(emissionFactorDTO.getId())
                 .orElseThrow(() -> new NotFoundException("Emission Factor not found with : " + emissionFactorDTO.getId()));
+        emissionFactor.setSource(emissionFactorDTO.getSource());
+        emissionFactor.setFactor(emissionFactorDTO.getFactor());
+
+        Country country = countryRepository.findById(emissionFactorDTO.getCountryId())
+                .orElseThrow(() -> new NotFoundException("Country not found with : " + emissionFactorDTO.getCountryId()));
+
+        emissionFactor.setCountry(country);
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }
 }

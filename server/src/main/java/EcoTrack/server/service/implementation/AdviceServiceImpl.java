@@ -56,10 +56,6 @@ public class AdviceServiceImpl implements AdviceService {
     @Override
     public AdviceDTO createDTO(AdviceDTO adviceDTO) {
         Advice advice = new Advice(adviceDTO);
-
-        advice.setGenerationDate(adviceDTO.getGenerationDate());
-        advice.setType(adviceDTO.getType());
-        advice.setContent(adviceDTO.getContent());
         return new AdviceDTO(adviceRepository.save(advice));
     }
 

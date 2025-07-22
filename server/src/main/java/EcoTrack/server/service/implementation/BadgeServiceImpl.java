@@ -39,8 +39,6 @@ public class BadgeServiceImpl implements BadgeService {
     @Override
     public BadgeDTO createDTO(BadgeDTO badgeDTO) {
         Badge badge = new Badge(badgeDTO);
-        badge.setLabel(badgeDTO.getLabel());
-        badge.setDescription(badgeDTO.getDescription());
         return new BadgeDTO(badgeRepository.save(badge));
     }
 

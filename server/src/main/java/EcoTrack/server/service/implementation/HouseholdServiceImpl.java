@@ -39,6 +39,10 @@ public class HouseholdServiceImpl implements HouseholdService {
     public HouseholdDTO updateDTO(HouseholdDTO householdDTO) {
         Household household = householdRepository.findById(householdDTO.getId())
                 .orElseThrow(() -> new NotFoundException("Household not found with : " + householdDTO.getId()));
+
+        household.setCity(householdDTO.getCity());
+        household.setNumber(householdDTO.getNumber());
+        household.setStreet(householdDTO.getStreet());
         return new HouseholdDTO(householdRepository.save(household));
     }
 
