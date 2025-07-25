@@ -19,7 +19,7 @@ import java.util.Set;
 public class HouseholdDTO {
     private Long id;
     @NotNull
-    private int number;
+    private Integer number;
     @NotNull
     private String Street;
     @NotNull

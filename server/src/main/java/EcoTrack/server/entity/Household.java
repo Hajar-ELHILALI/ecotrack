@@ -24,7 +24,7 @@ public class Household {
     private Long id;
 
     @NotNull
-    private int number;
+    private Integer number;
 
     private String street;
 

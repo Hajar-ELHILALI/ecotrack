@@ -13,4 +13,5 @@ public interface UserService{
     UserDTO findById(Long id);
     UserDTO updateDTO(UserDTO userDTO);
     List<User> findAll();
+    ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO);
 }
