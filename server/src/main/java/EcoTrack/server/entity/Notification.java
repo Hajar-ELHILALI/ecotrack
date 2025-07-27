@@ -1,5 +1,6 @@
 package EcoTrack.server.entity;
 
+import EcoTrack.server.DTO.NotificationDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,4 +35,12 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Notification(NotificationDTO notificationDTO) {
+        setId(notificationDTO.getId());
+        setDate(notificationDTO.getDate());
+        setRead(notificationDTO.isRead());
+        setType(notificationDTO.getType());
+        setContent(notificationDTO.getContent());
+    }
 }
