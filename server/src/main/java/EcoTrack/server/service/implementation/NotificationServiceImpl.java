@@ -56,6 +56,10 @@ public class NotificationServiceImpl implements NotificationService {
         Notification notification = notificationRepository.findById(notificationDTO.getId())
                 .orElseThrow(() -> new NotFoundException("Notification not found with : " + notificationDTO.getId()));
 
+        User user = userRepository.findById(notificationDTO.getUserId())
+                        .orElseThrow(() -> new NotFoundException("User not found with : " + notificationDTO.getUserId()));
+        notification.setUser(user);
+
         notification.setRead(notificationDTO.isRead());
         notification.setType(notificationDTO.getType());
         notification.setDate(notificationDTO.getDate());
