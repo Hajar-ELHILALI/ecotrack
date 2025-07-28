@@ -2,6 +2,7 @@ package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.CategoryDTO;
 import EcoTrack.server.entity.Category;
+import EcoTrack.server.enums.CategoryType;
 import EcoTrack.server.exception.NotFoundException;
 import EcoTrack.server.repository.CategoryRepository;
 import EcoTrack.server.service.CategoryService;
@@ -45,8 +46,14 @@ public class CategoryServiceImpl implements CategoryService {
         return new CategoryDTO(categoryRepository.save(category));
     }
 
+
     @Override
     public CategoryDTO createDTO(CategoryDTO categoryDTO) {
+        Optional<Category> existingCategory = categoryRepository.findCategoryByCategoryType(categoryDTO.getCategoryType());
+        if (existingCategory.isPresent()) {
+            // a modifier
+            return null;
+        }
         Category category = new Category(categoryDTO);
         category.setCategoryType(categoryDTO.getCategoryType());
         return new CategoryDTO(categoryRepository.save(category));
