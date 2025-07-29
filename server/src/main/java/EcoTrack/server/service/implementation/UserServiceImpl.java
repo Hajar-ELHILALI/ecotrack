@@ -6,13 +6,17 @@ import EcoTrack.server.DTO.UserDTO;
 import EcoTrack.server.entity.*;
 import EcoTrack.server.repository.*;
 import EcoTrack.server.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import EcoTrack.server.exception.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +38,7 @@ public class UserServiceImpl implements UserService {
         this.badgeRepository = badgeRepository;
     }
 
+    @Transactional
     @Override
     public void deleteByEmail(String email) {
         userRepository.deleteByEmail(email);
@@ -70,6 +75,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO) {
 
+        Optional<User> existingUser = userRepository.findByEmail(registerRequestDTO.getEmail());
+        if (existingUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT) // 409
+                    .body(null);
+        }
+
         User user = new User(registerRequestDTO.user());
 
 
@@ -93,6 +104,30 @@ public class UserServiceImpl implements UserService {
 
         return ResponseEntity.ok(new UserDTO(user));
 
+    }
+
+    @Override
+    public UserDTO findDTOById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.map(UserDTO::new)
+                .orElseThrow(() -> new NotFoundException("User not found with : " + id));
+
+    }
+
+    @Override
+    public List<UserDTO> findAllDTO() {
+        return userRepository.findAll().stream().map(UserDTO::new).toList();
+    }
+
+    @Override
+    public void deleteDTOById(Long id) {
+        userRepository.deleteById(id);
+
+    }
+
+    @Override
+    public UserDTO createDTO(UserDTO userDTO) {
+        return null;
     }
 
 }
