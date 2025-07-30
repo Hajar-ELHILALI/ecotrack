@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "userActivities")
+@Table(name = "users_Activities")
 public class
 UserActivity {
 
