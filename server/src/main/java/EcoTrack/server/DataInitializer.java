@@ -3,8 +3,7 @@ package EcoTrack.server;
 import EcoTrack.server.entity.Badge;
 import EcoTrack.server.entity.Category;
 import EcoTrack.server.entity.Role;
-import EcoTrack.server.enums.BadgeLabel;
-import EcoTrack.server.enums.CategoryType;
+import EcoTrack.server.enums.*;
 import EcoTrack.server.repository.BadgeRepository;
 import EcoTrack.server.repository.CategoryRepository;
 import EcoTrack.server.repository.RoleRepository;
@@ -17,7 +16,7 @@ public class DataInitializer implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final BadgeRepository badgeRepository;
 
-    public DataInitializer(CategoryRepository categoryRepository, RoleRepository roleRepository, BadgeRepository badgeRepository) {
+    public DataInitializer(CategoryRepository categoryRepository, RoleRepository roleRepository, BadgeRepository badgeRepository)  {
         this.categoryRepository = categoryRepository;
         this.roleRepository = roleRepository;
         this.badgeRepository = badgeRepository;

@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "adviceHistories")
+@Table(name = "advice_histories")
 public class HistoricAdvice {
 
     @Id

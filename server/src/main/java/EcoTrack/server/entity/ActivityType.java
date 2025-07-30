@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "Activity_types")
+@Table(name = "activity_types")
 public class ActivityType {
 
     @Id
