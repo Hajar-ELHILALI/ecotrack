@@ -3,6 +3,7 @@ package EcoTrack.server.service.implementation;
 import EcoTrack.server.DTO.ActivityTypeDTO;
 import EcoTrack.server.entity.ActivityType;
 import EcoTrack.server.entity.Category;
+import EcoTrack.server.exception.NotFoundException;
 import EcoTrack.server.repository.ActivityTypeRepository;
 import EcoTrack.server.repository.CategoryRepository;
 import EcoTrack.server.service.ActivityTypeService;
@@ -21,23 +22,6 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         this.categoryRepository = categoryRepository;
     }
 
-    @Override
-    public List<ActivityType> findAll() {
-        return activityTypeRepository.findAll();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        activityTypeRepository.deleteById(id);
-    }
-
-    @Override
-    public ActivityType findById(Long id) {
-        Optional<ActivityType> activityTypeOptional = activityTypeRepository.findById(id);
-        return activityTypeOptional.orElse(null);
-    }
-
-
 
     @Override
     public List<ActivityTypeDTO> findAllDTO() {
@@ -49,16 +33,16 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     public ActivityTypeDTO findDTOById(Long id) {
         Optional<ActivityType> activityTypeOptional = activityTypeRepository.findById(id);
         return activityTypeOptional.map(ActivityTypeDTO::new)
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException("ActivtyType not found with : " + id));
     }
 
     @Override
     public ActivityTypeDTO updateDTO(ActivityTypeDTO activityTypeDTO) {
         ActivityType activityType = activityTypeRepository.findById(activityTypeDTO.getId())
-                .orElse(null);
+                .orElseThrow(() -> new NotFoundException("ActivtyType not found with : " + activityTypeDTO.getId()));
 
         Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
-                        .orElse(null);
+                .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
         activityType.setName(activityTypeDTO.getName());
         activityType.setUnit(activityTypeDTO.getUnit());
         activityType.setCategory(category);
@@ -68,22 +52,14 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
 
     }
 
-    @Override
-    public ActivityType update(ActivityType activityType) {
-        ActivityTypeDTO activityTypeDTO = new ActivityTypeDTO(activityType);
-        activityTypeDTO = updateDTO(activityTypeDTO);
-        return activityTypeRepository.findById(activityTypeDTO.getId())
-                .orElse(null);
-    }
+
 
     @Override
     public ActivityTypeDTO createDTO(ActivityTypeDTO activityTypeDTO) {
         ActivityType activityType = new ActivityType(activityTypeDTO);
 
         Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
-                .orElse(null);
-        activityType.setName(activityTypeDTO.getName());
-        activityType.setUnit(activityTypeDTO.getUnit());
+                .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
         activityType.setCategory(category);
 
 
@@ -95,14 +71,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
 
 
-    @Override
-    public ActivityType create(ActivityType activityType) {
-        ActivityTypeDTO activityTypeDTO = new ActivityTypeDTO(activityType);
-        activityTypeDTO = createDTO(activityTypeDTO);
-        return activityTypeRepository.findById(activityTypeDTO.getId())
-                .orElse(null);
 
-    }
 
     @Override
     public void deleteDTOById(Long id) {

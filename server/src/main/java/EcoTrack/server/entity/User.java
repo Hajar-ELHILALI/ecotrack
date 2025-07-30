@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,23 +47,23 @@ public class User {
     private Country country;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private ArrayList<UserGoal> goals = new ArrayList<>();
+    private Set<UserGoal> goals = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private ArrayList<UserReview> reviews = new ArrayList<>();
+    private Set<UserReview> reviews = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private ArrayList<Notification> notifications = new ArrayList<>();
+    private Set<Notification> notifications = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private ArrayList<Score> scores = new ArrayList<>();
+    private Set<Score> scores = new HashSet<>();
 
     public User(UserDTO userDTO) {
         setEmail(userDTO.getEmail());
         setUserName(userDTO.getUserName());
-        setGoals(new ArrayList<>());
-        setNotifications(new ArrayList<>());
-        setScores(new ArrayList<>());
-        setReviews(new ArrayList<>());
+        setGoals(new HashSet<>());
+        setNotifications(new HashSet<>());
+        setScores(new HashSet<>());
+        setReviews(new HashSet<>());
     }
 }

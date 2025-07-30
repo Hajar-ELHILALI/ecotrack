@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface UserService{
+public interface UserService extends CrudDTO<UserDTO, Long> {
     void deleteByEmail(String email);
     UserDTO findByEmail(String email);
     UserDTO findById(Long id);
-    UserDTO updateDTO(UserDTO userDTO);
     List<User> findAll();
+    ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO);
 }
