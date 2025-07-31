@@ -18,11 +18,14 @@ public class EmissionFactorDTO {
     private String source;
     @NotNull
     private Long countryId;
+    @NotNull
+    private Long activityTypeId;
 
     public EmissionFactorDTO(EmissionFactor emissionFactor){
         setId(emissionFactor.getId());
         setFactor(emissionFactor.getFactor());
         setSource(emissionFactor.getSource());
         setCountryId(emissionFactor.getId());
+        setActivityTypeId(emissionFactor.getId());
     }
 }
