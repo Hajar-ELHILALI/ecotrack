@@ -1,8 +1,8 @@
 -- 1. Insertion des catégories
 INSERT INTO categories (category_type) VALUES
-                                           ('Transport'),
-                                           ('Electricity'),
-                                           ('Nutrition');
+                                           ('TRANSPORT'),
+                                           ('ELECTRICITY'),
+                                           ('NUTRITION');
 
 -- 2. Insertion des rôles
 INSERT INTO roles (authority) VALUES
@@ -25,14 +25,14 @@ INSERT INTO countries (name, code_iso) VALUES
 
 -- 5. Insertion des types d'activités
 INSERT INTO activity_types (name, unit, category_id) VALUES
-                                                         ('Electric Car', 'Km', 1),
-                                                         ('Train', 'Km', 1),
-                                                         ('Beef Meat', 'Kg', 3),
-                                                         ('Solar Energy', 'Klw', 2),
-                                                         ('Long-haul Flight', 'Km', 1),
-                                                         ('Public Transport', 'Km', 1),
-                                                         ('Dairy Products', 'Kg', 3),
-                                                         ('Wind Energy', 'Klw', 2);
+                                                         ('Electric Car', 'KM', 1),
+                                                         ('Train', 'KM', 1),
+                                                         ('Beef Meat', 'KG', 3),
+                                                         ('Solar Energy', 'KLW', 2),
+                                                         ('Long-haul Flight', 'KM', 1),
+                                                         ('Public Transport', 'KM', 1),
+                                                         ('Dairy Products', 'KG', 3),
+                                                         ('Wind Energy', 'KLW', 2);
 
 -- 6. Insertion des facteurs d'émission
 INSERT INTO emission_factors (factor, source, country_id, activity_type_id) VALUES
