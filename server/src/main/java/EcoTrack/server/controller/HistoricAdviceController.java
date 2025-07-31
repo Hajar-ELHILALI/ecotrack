@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/historic_advice")
+@RequestMapping("/api/historic-advice")
 public class HistoricAdviceController {
     private final HistoricAdviceService historicAdviceService;
     public HistoricAdviceController(HistoricAdviceService historicAdviceService) {
