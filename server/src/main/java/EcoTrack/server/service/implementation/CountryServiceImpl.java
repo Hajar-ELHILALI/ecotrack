@@ -32,6 +32,9 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDTO createDTO(CountryDTO countryDTO) {
+        if(countryRepository.findCountryByCodeIso(countryDTO.getCodeIso()).isPresent()){
+            throw new IllegalArgumentException("Country already exists!");
+        }
         Country country = new Country(countryDTO);
         return new CountryDTO(countryRepository.save(country));
     }
@@ -48,5 +51,11 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public void deleteDTOById(Long id){
         countryRepository.deleteById(id);
+    }
+
+    @Override
+    public CountryDTO findCountryByName(String countryName){
+        return countryRepository.findCountryByName(countryName)
+                .orElseThrow(() -> new NotFoundException("Country not found with : " + countryName));
     }
 }

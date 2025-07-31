@@ -22,7 +22,6 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         this.categoryRepository = categoryRepository;
     }
 
-
     @Override
     public List<ActivityTypeDTO> findAllDTO() {
         return activityTypeRepository.findAll()
@@ -41,18 +40,20 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         ActivityType activityType = activityTypeRepository.findById(activityTypeDTO.getId())
                 .orElseThrow(() -> new NotFoundException("ActivtyType not found with : " + activityTypeDTO.getId()));
 
-        Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
-                .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
         activityType.setName(activityTypeDTO.getName());
         activityType.setUnit(activityTypeDTO.getUnit());
-        activityType.setCategory(category);
+        Category oldCategory = activityType.getCategory();
+        if(!oldCategory.getId().equals(activityTypeDTO.getCategoryId())) {
+            oldCategory.getActivityTypes().remove(activityType);
+            Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
+                    .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
+            activityType.setCategory(category);
+            category.getActivityTypes().add(activityType);
+        }
+
 
         return new ActivityTypeDTO(activityTypeRepository.save(activityType));
-
-
     }
-
-
 
     @Override
     public ActivityTypeDTO createDTO(ActivityTypeDTO activityTypeDTO) {
@@ -61,17 +62,11 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         Category category = categoryRepository.findById(activityTypeDTO.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found with : " + activityTypeDTO.getCategoryId()));
         activityType.setCategory(category);
-
+        category.getActivityTypes().add(activityType);
 
         return new ActivityTypeDTO(activityTypeRepository.save(activityType));
 
-
-
-
     }
-
-
-
 
     @Override
     public void deleteDTOById(Long id) {

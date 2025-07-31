@@ -96,8 +96,11 @@ public class UserServiceImpl implements UserService {
         Badge badge = badgeRepository.findById(registerRequestDTO.getBadgeId())
                 .orElseThrow(() -> new NotFoundException("Badge not found"));
         user.setBadge(badge);
+        badge.getUsers().add(user);
         user.setHousehold(household);
+        household.getUsers().add(user);
         user.setCountry(country);
+        country.getUsers().add(user);
         user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         userRepository.save(user);
 

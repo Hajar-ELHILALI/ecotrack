@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserActivityServiceImpl implements UserActivityService {
@@ -54,6 +53,7 @@ public class UserActivityServiceImpl implements UserActivityService {
         ActivityType activityType = activityTypeRepository.findById(userActivityDTO.getActivityTypeId())
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + userActivityDTO.getActivityTypeId()));
         userActivity.setActivityType(activityType);
+
         Household household = householdRepository.findById(userActivityDTO.getHouseholdId())
                 .orElseThrow(() -> new NotFoundException("Household not found with : " + userActivityDTO.getHouseholdId()));
         userActivity.setHousehold(household);
@@ -61,6 +61,10 @@ public class UserActivityServiceImpl implements UserActivityService {
         User user = userRepository.findById(userActivityDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userActivityDTO.getUserId()));
         userActivity.setUser(user);
+
+        activityType.getUserActivities().add(userActivity);
+        household.getUserActivities().add(userActivity);
+        user.getUserActivities().add(userActivity);
 
         return new UserActivityDTO(userActivityRepository.save(userActivity));
 
@@ -70,22 +74,30 @@ public class UserActivityServiceImpl implements UserActivityService {
     public UserActivityDTO updateDTO(UserActivityDTO userActivityDTO) {
         UserActivity userActivity = userActivityRepository.findById(userActivityDTO.getId())
                 .orElseThrow(() -> new NotFoundException("UserActivity not found with : " + userActivityDTO.getId()));
+
+        ActivityType oldActivityType = userActivity.getActivityType();
+        oldActivityType.getUserActivities().remove(userActivity);
+
         ActivityType activityType = activityTypeRepository.findById(userActivityDTO.getActivityTypeId())
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + userActivityDTO.getActivityTypeId()));
-
         userActivity.setActivityType(activityType);
+
+        Household oldHousehold = userActivity.getHousehold();
+        oldHousehold.getUserActivities().remove(userActivity);
+
         Household household = householdRepository.findById(userActivityDTO.getHouseholdId())
                 .orElseThrow(() -> new NotFoundException("Household not found with : " + userActivityDTO.getHouseholdId()));
         userActivity.setHousehold(household);
+
 
         User user = userRepository.findById(userActivityDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userActivityDTO.getUserId()));
         userActivity.setUser(user);
 
-        userActivity.setSharingType(userActivityDTO.getSharingType());
-        userActivity.setDate(userActivityDTO.getDate());
-        userActivity.setQuantity(userActivityDTO.getQuantity());
-        userActivity.setNbrPersonnes(userActivityDTO.getNbrPersonnes());
+        activityType.getUserActivities().add(userActivity);
+        household.getUserActivities().add(userActivity);
+        user.getUserActivities().add(userActivity);
+
         return new UserActivityDTO(userActivityRepository.save(userActivity));
 
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserGoalServiceImpl implements UserGoalService {
@@ -46,6 +45,7 @@ public class UserGoalServiceImpl implements UserGoalService {
         User user = userRepository.findById(userGoalDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userGoalDTO.getUserId()));
         userGoal.setUser(user);
+        user.getGoals().add(userGoal);
         return new UserGoalDTO(userGoalRepository.save(userGoal));
     }
 
@@ -56,12 +56,19 @@ public class UserGoalServiceImpl implements UserGoalService {
 
         User user = userRepository.findById(userGoalDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userGoalDTO.getUserId()));
+
+        user.getGoals().remove(userGoal);
         userGoal.setUser(user);
+
         userGoal.setStartDate(userGoalDTO.getStartDate());
         userGoal.setEndDate(userGoalDTO.getEndDate());
         userGoal.setGoalAchieved(userGoalDTO.isGoalAchieved());
         userGoal.setEmissionTarget(userGoalDTO.getEmissionTarget());
+
+        user.getGoals().add(userGoal);
         return new UserGoalDTO(userGoalRepository.save(userGoal));
+
+
 
     }
 
