@@ -1,9 +1,11 @@
 package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.EmissionFactorDTO;
+import EcoTrack.server.entity.ActivityType;
 import EcoTrack.server.entity.Country;
 import EcoTrack.server.entity.EmissionFactor;
 import EcoTrack.server.exception.NotFoundException;
+import EcoTrack.server.repository.ActivityTypeRepository;
 import EcoTrack.server.repository.CountryRepository;
 import EcoTrack.server.repository.EmissionFactorRepository;
 import EcoTrack.server.service.EmissionFactorService;
@@ -16,9 +18,12 @@ import java.util.Optional;
 public class EmissionFactorServiceImpl implements EmissionFactorService {
     private final EmissionFactorRepository emissionFactorRepository;
     private final CountryRepository countryRepository;
-    public EmissionFactorServiceImpl(EmissionFactorRepository emissionFactorRepository, CountryRepository countryRepository) {
+    private final ActivityTypeRepository activityTypeRepository;
+
+    public EmissionFactorServiceImpl(EmissionFactorRepository emissionFactorRepository, CountryRepository countryRepository, ActivityTypeRepository activityTypeRepository) {
         this.emissionFactorRepository = emissionFactorRepository;
         this.countryRepository = countryRepository;
+        this.activityTypeRepository = activityTypeRepository;
     }
 
     @Override
@@ -45,7 +50,15 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         Country country = countryRepository.findById(emissionFactorDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found with : " + emissionFactorDTO.getCountryId()));
 
+        ActivityType activityType = activityTypeRepository.findById(emissionFactorDTO.getActivityTypeId())
+                .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + emissionFactorDTO.getActivityTypeId()));
+
+        emissionFactor.setActivityType(activityType);
         emissionFactor.setCountry(country);
+
+        country.getEmissionFactors().add(emissionFactor);
+        activityType.getEmissionFactors().add(emissionFactor);
+
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }
 
@@ -56,10 +69,21 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         emissionFactor.setSource(emissionFactorDTO.getSource());
         emissionFactor.setFactor(emissionFactorDTO.getFactor());
 
+        Country oldCountry = emissionFactor.getCountry();
+        oldCountry.getEmissionFactors().remove(emissionFactor);
         Country country = countryRepository.findById(emissionFactorDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found with : " + emissionFactorDTO.getCountryId()));
-
         emissionFactor.setCountry(country);
+
+        ActivityType oldActivityType = emissionFactor.getActivityType();
+        oldActivityType.getEmissionFactors().remove(emissionFactor);
+        ActivityType activityType = activityTypeRepository.findById(emissionFactorDTO.getActivityTypeId())
+                .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + emissionFactorDTO.getActivityTypeId()));
+        emissionFactor.setActivityType(activityType);
+
+        country.getEmissionFactors().add(emissionFactor);
+        activityType.getEmissionFactors().add(emissionFactor);
+
         return new EmissionFactorDTO(emissionFactorRepository.save(emissionFactor));
     }
 }

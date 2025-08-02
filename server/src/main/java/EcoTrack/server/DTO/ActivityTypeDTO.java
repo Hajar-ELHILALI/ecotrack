@@ -26,7 +26,7 @@ public class ActivityTypeDTO {
     private UnitType unit;
 
     @NotNull
-    private Long CategoryId;
+    private Long categoryId;
 
 
 

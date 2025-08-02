@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/countries/")
+@RequestMapping("/api/countries")
 public class CountryController{
     private final CountryService countryService;
     public CountryController(CountryService countryService){
@@ -25,7 +25,7 @@ public class CountryController{
         return ResponseEntity.ok(countryService.findAllDTO());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<CountryDTO> getCountryById(@PathVariable Long id){
         return ResponseEntity.ok(countryService.findDTOById(id));
     }
@@ -38,5 +38,10 @@ public class CountryController{
     @DeleteMapping("/{id}")
     public void deleteCountry(@PathVariable Long id){
         countryService.deleteDTOById(id);
+    }
+
+    @GetMapping("/countryName/{countryName}")
+    public ResponseEntity<CountryDTO> getCountryByName(@PathVariable String countryName){
+        return ResponseEntity.ok(countryService.findCountryByName(countryName));
     }
 }

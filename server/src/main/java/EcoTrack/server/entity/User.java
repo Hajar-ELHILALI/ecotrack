@@ -58,6 +58,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Score> scores = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserActivity> userActivities = new HashSet<>();
+
     public User(UserDTO userDTO) {
         setEmail(userDTO.getEmail());
         setUserName(userDTO.getUserName());
@@ -65,5 +68,6 @@ public class User {
         setNotifications(new HashSet<>());
         setScores(new HashSet<>());
         setReviews(new HashSet<>());
+        setUserActivities(new HashSet<>());
     }
 }
