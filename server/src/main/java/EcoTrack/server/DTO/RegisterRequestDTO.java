@@ -29,18 +29,12 @@ public class RegisterRequestDTO {
     @NotNull
     private Long countryId;
 
-    @NotNull
-    private Long badgeId;
     public UserDTO user(){
         UserDTO user = new UserDTO();
         user.setEmail(email);
         user.setUserName(userName);
         user.setCountryId(countryId);
-        user.setBadgeId(badgeId);
         user.setHouseholdId(householdId);
         return user;
     }
-
-
-
 }

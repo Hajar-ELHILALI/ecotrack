@@ -83,27 +83,20 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(registerRequestDTO.user());
 
-
         Role userRole = roleRepository.findById(1L)
                 .orElseThrow(() -> new NotFoundException("User Role not found"));
         user.setRole(userRole);
 
         Country country = countryRepository.findById(registerRequestDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found"));
+
         Household household = householdRepository.findById(registerRequestDTO.getHouseholdId())
                 .orElseThrow(() -> new NotFoundException("Household not found"));
 
-        Badge badge = badgeRepository.findById(registerRequestDTO.getBadgeId())
-                .orElseThrow(() -> new NotFoundException("Badge not found"));
-        user.setBadge(badge);
-        badge.getUsers().add(user);
         user.setHousehold(household);
-        household.getUsers().add(user);
         user.setCountry(country);
-        country.getUsers().add(user);
         user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         userRepository.save(user);
-
 
         return ResponseEntity.ok(new UserDTO(user));
 

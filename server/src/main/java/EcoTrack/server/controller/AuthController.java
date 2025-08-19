@@ -8,9 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
+
+
 @RequestMapping("/api/auth")
+
+
 public class AuthController {
 
     private final TokenService tokenService;
@@ -20,13 +23,16 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> token(Authentication authentication) {
 
+    @PostMapping("/login")
+
+    public ResponseEntity<String> token(Authentication authentication) {
         return ResponseEntity.ok(tokenService.generateToken(authentication));
     }
 
+
     @PostMapping("/register")
+
     public ResponseEntity<UserDTO> saveUser(Authentication authentication, @RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
         if (authentication!= null) {
             return ResponseEntity.badRequest().build();
