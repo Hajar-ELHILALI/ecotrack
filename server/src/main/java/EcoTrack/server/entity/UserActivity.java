@@ -36,16 +36,12 @@ UserActivity {
     @JoinColumn(name = "activity_type_id", nullable = false)
     private ActivityType activityType;
 
-    @ManyToOne
-    @JoinColumn(name = "household_id")
-    private Household household;
-
     //user-UserActivity
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UserActivity(UserActivityDTO userActivityDTO){
+    public UserActivity(UserActivityDTO userActivityDTO) {
         setDate(userActivityDTO.getDate());
         setNbrPersonnes(userActivityDTO.getNbrPersonnes());
         setQuantity(userActivityDTO.getQuantity());

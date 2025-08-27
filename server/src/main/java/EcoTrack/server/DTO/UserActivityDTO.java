@@ -33,8 +33,6 @@ public class UserActivityDTO {
     @NotNull
     private Long activityTypeId;
 
-    private Long householdId;
-
     private Long userId;
 
     public UserActivityDTO(UserActivity userActivity){
@@ -42,16 +40,6 @@ public class UserActivityDTO {
         setQuantity(userActivity.getQuantity());
         setDate(userActivity.getDate());
         setNbrPersonnes(userActivity.getNbrPersonnes());
-        if(userActivity.getSharingType() == SharingType.HOUSEHOLD){
-
-            setHouseholdId(userActivity.getHousehold().getId());
-            setUserId(null);
-        }else{
-
-            setUserId(userActivity.getUser().getId());
-            setHouseholdId(null);
-        }
-
         setActivityTypeId(userActivity.getActivityType().getId());
         setSharingType(userActivity.getSharingType());
     }

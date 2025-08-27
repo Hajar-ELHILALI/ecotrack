@@ -3,9 +3,7 @@ package EcoTrack.server.DTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 import EcoTrack.server.entity.*;
-import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -19,12 +17,9 @@ public class UserDTO {
     @Email
     private String email;
 
-
     private String userName;
     @NotNull
     private Long roleId;
-    @NotNull
-    private Long householdId;
     private Long badgeId;
     @NotNull
     private Long countryId;
@@ -36,7 +31,6 @@ public class UserDTO {
         setUserName(user.getUserName());
         setCountryId(user.getCountry().getId());
         setRoleId(user.getRole().getId());
-        setHouseholdId(user.getHousehold().getId());
         setBadgeId(user.getBadge().getId());
 
     }

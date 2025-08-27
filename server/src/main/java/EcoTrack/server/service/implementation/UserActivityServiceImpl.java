@@ -2,12 +2,10 @@ package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.entity.ActivityType;
-import EcoTrack.server.entity.Household;
 import EcoTrack.server.entity.User;
 import EcoTrack.server.entity.UserActivity;
 import EcoTrack.server.exception.NotFoundException;
 import EcoTrack.server.repository.ActivityTypeRepository;
-import EcoTrack.server.repository.HouseholdRepository;
 import EcoTrack.server.repository.UserActivityRepository;
 import EcoTrack.server.repository.UserRepository;
 import EcoTrack.server.service.UserActivityService;
@@ -20,13 +18,11 @@ import java.util.Optional;
 public class UserActivityServiceImpl implements UserActivityService {
     private final UserActivityRepository userActivityRepository;
     private final ActivityTypeRepository activityTypeRepository;
-    private final HouseholdRepository householdRepository;
     private final UserRepository userRepository;
 
-    public UserActivityServiceImpl(UserActivityRepository userActivityRepository, ActivityTypeRepository activityTypeRepository, HouseholdRepository householdRepository, UserRepository userRepository) {
+    public UserActivityServiceImpl(UserActivityRepository userActivityRepository, ActivityTypeRepository activityTypeRepository, UserRepository userRepository) {
         this.userActivityRepository = userActivityRepository;
         this.activityTypeRepository = activityTypeRepository;
-        this.householdRepository = householdRepository;
         this.userRepository = userRepository;
     }
 
@@ -54,10 +50,6 @@ public class UserActivityServiceImpl implements UserActivityService {
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + userActivityDTO.getActivityTypeId()));
         userActivity.setActivityType(activityType);
 
-        Household household = householdRepository.findById(userActivityDTO.getHouseholdId())
-                .orElseThrow(() -> new NotFoundException("Household not found with : " + userActivityDTO.getHouseholdId()));
-        userActivity.setHousehold(household);
-
         User user = userRepository.findById(userActivityDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userActivityDTO.getUserId()));
         userActivity.setUser(user);
@@ -74,10 +66,6 @@ public class UserActivityServiceImpl implements UserActivityService {
         ActivityType activityType = activityTypeRepository.findById(userActivityDTO.getActivityTypeId())
                 .orElseThrow(() -> new NotFoundException("ActivityType not found with : " + userActivityDTO.getActivityTypeId()));
         userActivity.setActivityType(activityType);
-
-        Household household = householdRepository.findById(userActivityDTO.getHouseholdId())
-                .orElseThrow(() -> new NotFoundException("Household not found with : " + userActivityDTO.getHouseholdId()));
-        userActivity.setHousehold(household);
 
         User user = userRepository.findById(userActivityDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userActivityDTO.getUserId()));

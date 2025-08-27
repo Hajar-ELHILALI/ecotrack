@@ -4,5 +4,4 @@ public enum SharingType {
     SOLO,
     PRIVATE,
     PUBLIC,
-    HOUSEHOLD,
 }

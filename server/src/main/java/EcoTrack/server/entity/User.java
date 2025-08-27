@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,10 +31,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-
-    @ManyToOne
-    @JoinColumn(name = "household_id")
-    private Household household;
 
     @ManyToOne
     @JoinColumn(name = "badge_id")

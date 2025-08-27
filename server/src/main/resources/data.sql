@@ -45,29 +45,21 @@ INSERT INTO emission_factors (factor, source, country_id, activity_type_id) VALU
                                                                                 (15.2, 'USDA 2023', 2, 3),
                                                                                 (0.15, 'IEA 2023', 3, 4);
 
--- 7. Insertion des foyers
-INSERT INTO households (number, street, city) VALUES
-                                                  (15, 'Rue Ecolière', 'Paris'),
-                                                  (42, 'Green Avenue', 'New York'),
-                                                  (7, 'Umweltstrasse', 'Berlin'),
-                                                  (22, 'Eco-Dori', 'Tokyo'),
-                                                  (10, 'Maple Leaf Road', 'Toronto');
-
 -- 8. Insertion des utilisateurs
-INSERT INTO users (user_name, email, password, role_id, household_id, badge_id, country_id) VALUES
-                                                                                                ('eco_user', 'user@ecotrack.com', '$2a$10$dummyhash', 1, 1, 1, 1),
-                                                                                                ('eco_admin', 'admin@ecotrack.com', '$2a$10$dummyhash', 2, 1, 2, 1),
-                                                                                                ('green_ny', 'nyuser@example.com', '$2a$10$dummyhash', 1, 2, 3, 2),
-                                                                                                ('berlin_eco', 'berlin@example.com', '$2a$10$dummyhash', 1, 3, 1, 3),
-                                                                                                ('tokyo_saver', 'tokyo@example.com', '$2a$10$dummyhash', 1, 4, 2, 4);
+INSERT INTO users (user_name, email, password, role_id, badge_id, country_id) VALUES
+                                                                                                ('eco_user', 'user@ecotrack.com', '$2a$10$dummyhash', 1,  1, 1),
+                                                                                                ('eco_admin', 'admin@ecotrack.com', '$2a$10$dummyhash', 2,  2, 1),
+                                                                                                ('green_ny', 'nyuser@example.com', '$2a$10$dummyhash', 1,  3, 2),
+                                                                                                ('berlin_eco', 'berlin@example.com', '$2a$10$dummyhash', 1,  1, 3),
+                                                                                                ('tokyo_saver', 'tokyo@example.com', '$2a$10$dummyhash', 1,  2, 4);
 
 -- 9. Insertion des activités utilisateur
-INSERT INTO users_activities (quantity, date, sharing_type, nbr_personnes, activity_type_id, household_id, user_id) VALUES
-                                                                                                                        (50.0, '2023-11-01', 'SOLO', 1, 1, 1, 1),
-                                                                                                                        (120.0, '2023-11-02', 'HOUSEHOLD', 4, 2, 1, 2),
-                                                                                                                        (2.5, '2023-11-03', 'PRIVATE', 2, 3, 2, 3),
-                                                                                                                        (150.0, '2023-11-04', 'PUBLIC', 1, 4, 3, 4),
-                                                                                                                        (5000.0, '2023-11-05', 'SOLO', 1, 5, 4, 5);
+INSERT INTO users_activities (quantity, date, sharing_type, nbr_personnes, activity_type_id, user_id) VALUES
+                                                                                                                        (50.0, '2023-11-01', 'SOLO', 1, 1,  1),
+                                                                                                                        (120.0, '2023-11-02', 'HOUSEHOLD', 4, 2,  2),
+                                                                                                                        (2.5, '2023-11-03', 'PRIVATE', 2, 3,  3),
+                                                                                                                        (150.0, '2023-11-04', 'PUBLIC', 1, 4,  4),
+                                                                                                                        (5000.0, '2023-11-05', 'SOLO', 1, 5,  5);
 
 -- 10. Insertion des scores
 INSERT INTO scores (qualitative_score, totalco2, user_id) VALUES

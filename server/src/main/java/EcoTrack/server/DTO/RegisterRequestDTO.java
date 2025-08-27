@@ -1,8 +1,5 @@
 package EcoTrack.server.DTO;
 
-import EcoTrack.server.entity.Country;
-import EcoTrack.server.entity.Household;
-import EcoTrack.server.entity.User;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +21,6 @@ public class RegisterRequestDTO {
     private String userName;
 
     @NotNull
-    private Long householdId;
-
-    @NotNull
     private Long countryId;
 
     public UserDTO user(){
@@ -34,7 +28,6 @@ public class RegisterRequestDTO {
         user.setEmail(email);
         user.setUserName(userName);
         user.setCountryId(countryId);
-        user.setHouseholdId(householdId);
         return user;
     }
 }
