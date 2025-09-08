@@ -12,5 +12,5 @@ public interface UserService extends CrudDTO<UserDTO, Long> {
     UserDTO findByEmail(String email);
     UserDTO findById(Long id);
     List<User> findAll();
-    ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO);
+    ResponseEntity<Void> register(RegisterRequestDTO registerRequestDTO);
 }

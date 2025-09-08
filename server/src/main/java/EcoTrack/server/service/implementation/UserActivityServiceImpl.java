@@ -1,5 +1,6 @@
 package EcoTrack.server.service.implementation;
 
+import EcoTrack.server.DTO.ActivityDTO;
 import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.entity.ActivityType;
 import EcoTrack.server.entity.User;
@@ -11,6 +12,7 @@ import EcoTrack.server.repository.UserRepository;
 import EcoTrack.server.service.UserActivityService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +74,23 @@ public class UserActivityServiceImpl implements UserActivityService {
         userActivity.setUser(user);
 
         return new UserActivityDTO(userActivityRepository.save(userActivity));
+    }
+    @Override
+    public void createActivity(ActivityDTO dto, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        ActivityType type = activityTypeRepository.findByName(dto.getActivityTypeName())
+                .orElseThrow(() -> new RuntimeException("ActivityType not found"));
+
+        UserActivity activity = new UserActivity();
+        activity.setQuantity(dto.getQuantity());
+        activity.setNbrPersonnes(dto.getNbrPersonnes());
+        activity.setDate(new Date());
+        activity.setUser(user);
+        activity.setSharingType(dto.getSharingType());
+        activity.setActivityType(type);
+
+        userActivityRepository.save(activity);
     }
 }

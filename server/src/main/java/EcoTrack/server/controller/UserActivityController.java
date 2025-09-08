@@ -1,10 +1,13 @@
 package EcoTrack.server.controller;
 
+import EcoTrack.server.DTO.ActivityDTO;
 import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.service.UserActivityService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,9 +29,9 @@ public class UserActivityController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserActivityDTO> createUserActivity(@RequestBody UserActivityDTO userActivityDTO) {
-        return ResponseEntity.ok(userActivityService.createDTO(userActivityDTO));
-    }
+    public ResponseEntity<Void> createUserActivity(@RequestBody ActivityDTO activityDTO, Principal principal) {
+        userActivityService.createActivity(activityDTO, principal.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).build();    }
 
     @PutMapping("/")
     public ResponseEntity<UserActivityDTO> updateUserActivity(@RequestBody UserActivityDTO userActivityDTO) {

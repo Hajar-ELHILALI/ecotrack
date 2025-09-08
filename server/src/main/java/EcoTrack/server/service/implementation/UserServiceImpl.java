@@ -69,31 +69,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<UserDTO> register(RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<Void> register(RegisterRequestDTO registerRequestDTO) {
 
+        // Vérifier si l'utilisateur existe déjà
         Optional<User> existingUser = userRepository.findByEmail(registerRequestDTO.getEmail());
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT) // 409
-                    .body(null);
+                    .build();
         }
 
-        User user = new User(registerRequestDTO.user());
+        // Créer l'utilisateur à partir du DTO
+        User user = new User();
+        user.setUserName(registerRequestDTO.getUserName());
+        user.setEmail(registerRequestDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
 
+        // Récupérer le rôle de l'utilisateur
         Role userRole = roleRepository.findById(1L)
                 .orElseThrow(() -> new NotFoundException("User Role not found"));
         user.setRole(userRole);
 
+        // Récupérer le pays
         Country country = countryRepository.findById(registerRequestDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found"));
-
-
         user.setCountry(country);
-        user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+
+        // Sauvegarder l'utilisateur
         userRepository.save(user);
 
-        return ResponseEntity.ok(new UserDTO(user));
-
+        // Retourner une réponse 201 Created sans corps
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
     @Override
     public UserDTO findDTOById(Long id) {
