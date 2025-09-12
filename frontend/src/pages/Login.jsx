@@ -20,9 +20,6 @@ const Login = () => {
       }}
     >
       
-      <div className="absolute inset-0 bg-black/30"></div>
-
-     
       <div className="relative z-10 w-full max-w-md p-10 rounded-xl bg-white/20 backdrop-blur-md shadow-lg">
         <h2 className="text-3xl font-bold text-orange-400 mb-6 text-center">
           Login
