@@ -1,6 +1,7 @@
 package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.ScoreDTO;
+import EcoTrack.server.DTO.statisticDTO;
 import EcoTrack.server.entity.*;
 import EcoTrack.server.enums.CategoryType;
 import EcoTrack.server.enums.QualitativeScore;
@@ -125,5 +126,12 @@ public class ScoreServiceImpl implements ScoreService {
             default:
                 throw new IllegalArgumentException("Unknown category: " + category);
         }
+    }
+
+    public List<statisticDTO> getUserScores(Long userId) {
+        return scoreRepository.findByUserIdOrderByUserActivityDateAsc(userId)
+                .stream()
+                .map(statisticDTO::new)
+                .toList();
     }
 }

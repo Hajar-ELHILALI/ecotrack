@@ -42,6 +42,5 @@ public class UserGoal {
         setEmissionTarget(userGoalDTO.getEmissionTarget());
         setStartDate(userGoalDTO.getStartDate());
         setEndDate(userGoalDTO.getEndDate());
-
     }
 }
