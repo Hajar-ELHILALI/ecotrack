@@ -3,6 +3,7 @@ package EcoTrack.server.service.implementation;
 import EcoTrack.server.DTO.RegisterRequestDTO;
 import EcoTrack.server.DTO.UserDTO;
 import EcoTrack.server.entity.*;
+import EcoTrack.server.enums.BadgeLabel;
 import EcoTrack.server.repository.*;
 import EcoTrack.server.service.UserService;
 import jakarta.transaction.Transactional;
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<Void> register(RegisterRequestDTO registerRequestDTO) {
 
-        // Vérifier si l'utilisateur existe déjà
+        // Vérifier si l'utilisateur existe déeejà
         Optional<User> existingUser = userRepository.findByEmail(registerRequestDTO.getEmail());
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT) // 409
@@ -84,15 +85,21 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registerRequestDTO.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
 
-        // Récupérer le rôle de l'utilisateur
+        // Récupérer le rôle
         Role userRole = roleRepository.findById(1L)
                 .orElseThrow(() -> new NotFoundException("User Role not found"));
         user.setRole(userRole);
 
-        // Récupérer le pays
+        // Recuperer le pays
         Country country = countryRepository.findById(registerRequestDTO.getCountryId())
                 .orElseThrow(() -> new NotFoundException("Country not found"));
         user.setCountry(country);
+
+        //Attribuer le premier badge automatiquement
+
+        Badge firstBadge = badgeRepository.findByLabel(BadgeLabel.Eco_Novice)
+                .orElseThrow(() -> new NotFoundException("Badge Eco_Novice not found"));
+        user.setBadge(firstBadge);
 
         // Sauvegarder l'utilisateur
         userRepository.save(user);
