@@ -92,5 +92,8 @@ public class UserActivityServiceImpl implements UserActivityService {
         activity.setActivityType(type);
 
         userActivityRepository.save(activity);
+
+        //maintenant on doit faire le calcul de l'emission de co2
+
     }
 }

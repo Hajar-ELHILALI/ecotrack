@@ -25,6 +25,10 @@ public class Score {
 
     private double totalco2;
 
+    @OneToOne
+    @JoinColumn(name = "userActivity_id",unique=true)
+    private UserActivity userActivity;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

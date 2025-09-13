@@ -23,17 +23,17 @@ public class UserActivityController {
         return ResponseEntity.ok(userActivityService.findDTOById(id));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<UserActivityDTO>> getAllUserActivity() {
         return ResponseEntity.ok(userActivityService.findAllDTO());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> createUserActivity(@RequestBody ActivityDTO activityDTO, Principal principal) {
         userActivityService.createActivity(activityDTO, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED).build();    }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<UserActivityDTO> updateUserActivity(@RequestBody UserActivityDTO userActivityDTO) {
         return ResponseEntity.ok(userActivityService.updateDTO(userActivityDTO));
     }
