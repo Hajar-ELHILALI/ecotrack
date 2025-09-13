@@ -21,11 +21,13 @@ public class UserActivityServiceImpl implements UserActivityService {
     private final UserActivityRepository userActivityRepository;
     private final ActivityTypeRepository activityTypeRepository;
     private final UserRepository userRepository;
+    private final ScoreServiceImpl scoreServiceImpl;
 
-    public UserActivityServiceImpl(UserActivityRepository userActivityRepository, ActivityTypeRepository activityTypeRepository, UserRepository userRepository) {
+    public UserActivityServiceImpl(UserActivityRepository userActivityRepository, ActivityTypeRepository activityTypeRepository, UserRepository userRepository, ScoreServiceImpl scoreServiceImpl) {
         this.userActivityRepository = userActivityRepository;
         this.activityTypeRepository = activityTypeRepository;
         this.userRepository = userRepository;
+        this.scoreServiceImpl = scoreServiceImpl;
     }
 
     @Override
@@ -93,7 +95,6 @@ public class UserActivityServiceImpl implements UserActivityService {
 
         userActivityRepository.save(activity);
 
-        //maintenant on doit faire le calcul de l'emission de co2
-
+        scoreServiceImpl.calculateAndSaveScore(activity);
     }
 }
