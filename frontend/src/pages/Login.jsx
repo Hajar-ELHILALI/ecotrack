@@ -1,15 +1,43 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import { loginBackground } from "../assets";
 import InputField from "../components/InputField";
+import axios from 'axios'
+import Popup from '../components/Popup'
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPopup, setShowPopup] = useState(false)
+  const [popupMessage, setPopupMessage] = useState("")
+  const [popupType, setPopupType] = useState("")
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    try{
+      const response = await axios.post("http://localhost:8080/api/auth/login",{
+        email,
+        password
+      },{
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+       if (response.status === 200) {
+        setTimeout(() => {
+          navigate('/HomePage')
+        }, 1000) 
+      }
+
+    } catch(error){
+      setPopupMessage("Login failed" )
+      setPopupType("error")
+      setShowPopup(true)
+      console.log(error);
+    }
   };
+  const closePopup = () => setShowPopup(false)
 
   return (
     <div
@@ -34,7 +62,6 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder='Enter your email'
         />
-
           <InputField
           label='Password'
           type='password'
@@ -48,9 +75,14 @@ const Login = () => {
             className="bg-orange-400 text-white rounded-lg py-2 mt-2 hover:bg-orange-500 transition-colors"
           >
             Login
-          </button>
+          </button>        
         </form>
-
+        <Popup 
+          isOpen={showPopup}
+          message={popupMessage}
+          type={popupType}
+          onClose={closePopup}
+        />
         <p className="mt-4 text-center text-white/80">
           Don't have an account?{" "}
           <a
