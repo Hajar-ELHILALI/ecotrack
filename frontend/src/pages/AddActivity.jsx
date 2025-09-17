@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AccountNavbar from '../components/AccountNavbar';
 import axios from 'axios';
-
 import SelectField from '../components/SelectField';
 import Popup from '../components/Popup';
 

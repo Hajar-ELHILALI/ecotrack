@@ -7,7 +7,7 @@ const SelectField = ({ label, value, onChange, options, valueKey = 'id', labelKe
       <select
         value={value}
         onChange={onChange}
-        className="border border-green-700 rounded-lg p-2 w-full"
+        className="border border-green-800 rounded-lg p-2 w-full"
       >
         <option value="">Select {label}</option>
         {options.map(option => (
