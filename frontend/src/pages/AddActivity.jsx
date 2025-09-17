@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import AccountNavbar from '../components/AccountNavbar';
-import axios from 'axios';
-import SelectField from '../components/SelectField';
-import Popup from '../components/Popup';
+import React, { useEffect, useState } from "react";
+import AccountNavbar from "../components/AccountNavbar";
+import axios from "axios";
+import LabelField from "../components/LabelField";  // ✅ import corrigé
+import Popup from "../components/Popup";
 
 const AddActivity = () => {
   const [activityTypes, setActivityTypes] = useState([]);
@@ -12,37 +12,42 @@ const AddActivity = () => {
   const [nbrPersonnes, setNbrPersonnes] = useState(1);
   const [quantity, setQuantity] = useState("");
   const [sharingType, setSharingType] = useState("PRIVATE");
-  const [popup, setPopup] = useState({ isOpen: false, message: '', type: 'success' });
+  const [popup, setPopup] = useState({ isOpen: false, message: "", type: "success" });
 
-  const increment = () => setNbrPersonnes(prev => prev + 1);
-  const decrement = () => setNbrPersonnes(prev => (prev > 1 ? prev - 1 : 1));
+  const increment = () => setNbrPersonnes((prev) => prev + 1);
+  const decrement = () => setNbrPersonnes((prev) => (prev > 1 ? prev - 1 : 1));
 
+  // Charger catégories
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
-    axios.get('http://localhost:8080/api/categories/', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(response => setCategories(response.data))
-    .catch(error => console.log("Erreur lors du chargement des catégories:", error));
+    const token = localStorage.getItem("jwtToken");
+    axios
+      .get("http://localhost:8080/api/categories/", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => setCategories(response.data))
+      .catch((error) => console.log("Erreur lors du chargement des catégories:", error));
   }, []);
 
+  // Charger types d’activité selon la catégorie
   useEffect(() => {
     if (!categoryType) return;
     const token = localStorage.getItem("jwtToken");
-    axios.get(`http://localhost:8080/api/activity-types/by-category/${categoryType}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(response => setActivityTypes(response.data))
-    .catch(error => console.log("Erreur lors du chargement des types d'activité:", error));
+    axios
+      .get(`http://localhost:8080/api/activity-types/by-category/${categoryType}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => setActivityTypes(response.data))
+      .catch((error) => console.log("Erreur lors du chargement des types d'activité:", error));
   }, [categoryType]);
 
+  // Soumettre
   const handleSubmit = async () => {
     const token = localStorage.getItem("jwtToken");
     const payload = {
       activityTypeName: name,
       nbrPersonnes,
       quantity: parseFloat(quantity),
-      sharingType
+      sharingType,
     };
 
     try {
@@ -58,22 +63,22 @@ const AddActivity = () => {
 
   return (
     <div>
-      <AccountNavbar/>
+      <AccountNavbar />
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-xl space-y-4">
-          
-          <SelectField
+
+          <LabelField
             label="Sharing Type"
             value={sharingType}
             onChange={(e) => setSharingType(e.target.value)}
             options={[
-              { id: 'PRIVATE', name: 'PRIVATE' },
-              { id: 'FRIENDS', name: 'FRIENDS' },
-              { id: 'PUBLIC', name: 'PUBLIC' }
+              { id: "PRIVATE", name: "PRIVATE" },
+              { id: "FRIENDS", name: "FRIENDS" },
+              { id: "PUBLIC", name: "PUBLIC" },
             ]}
           />
 
-          <SelectField
+          <LabelField
             label="Category"
             value={categoryType}
             onChange={(e) => setCategoryType(e.target.value)}
@@ -82,7 +87,7 @@ const AddActivity = () => {
             labelKey="categoryType"
           />
 
-          <SelectField
+          <LabelField
             label="Activity Type"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -92,7 +97,7 @@ const AddActivity = () => {
           />
 
           <div className="flex items-center gap-2">
-            <label className="mb-1 block text-orange-600 font-medium">number of peoples</label>
+            <label className="mb-1 block text-orange-600 font-medium">Number of people</label>
             <button
               type="button"
               onClick={decrement}
@@ -147,6 +152,6 @@ const AddActivity = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AddActivity;

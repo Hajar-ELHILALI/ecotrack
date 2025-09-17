@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectField = ({ label, value, onChange, options, valueKey = 'id', labelKey = 'name' }) => {
+const LabelField = ({ label, value, onChange, options, valueKey = 'id', labelKey = 'name' }) => {
   return (
     <div className="mb-4 text-orange-700">
       <label className="mb-1 block text-orange-600 font-medium">{label}</label>
@@ -20,4 +20,4 @@ const SelectField = ({ label, value, onChange, options, valueKey = 'id', labelKe
   );
 };
 
-export default SelectField;
+export default LabelField;
