@@ -22,41 +22,42 @@ public class UserGoalServiceImpl implements UserGoalService {
         this.userRepository = userRepository;
     }
 
-    @Override
+
     public UserGoalDTO findDTOById(Long id) {
         Optional<UserGoal> userGoal = userGoalRepository.findById(id);
         return userGoal.map(UserGoalDTO::new)
                 .orElseThrow(() -> new NotFoundException("UserGoal not found with : " + id));
     }
 
-    @Override
     public List<UserGoalDTO> findAllDTO() {
         return userGoalRepository.findAll().stream().map(UserGoalDTO::new).toList();
     }
 
-    @Override
     public void deleteDTOById(Long id) {
         userGoalRepository.deleteById(id);
     }
 
     @Override
-    public UserGoalDTO createDTO(UserGoalDTO userGoalDTO) {
-        UserGoal userGoal = new UserGoal(userGoalDTO);
-        User user = userRepository.findById(userGoalDTO.getUserId())
-                .orElseThrow(() -> new NotFoundException("User not found with : " + userGoalDTO.getUserId()));
-        userGoal.setUser(user);
-        user.getGoals().add(userGoal);
-        return new UserGoalDTO(userGoalRepository.save(userGoal));
+    public UserGoal createGoal(UserGoalDTO dto, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        UserGoal goal = new UserGoal();
+        goal.setStartDate(dto.getStartDate());
+        goal.setEndDate(dto.getEndDate());
+        goal.setEmissionTarget(dto.getEmissionTarget());
+        goal.setGoalAchieved(false);
+        goal.setUser(user);
+
+        return userGoalRepository.save(goal);
     }
 
-    @Override
-    public UserGoalDTO updateDTO(UserGoalDTO userGoalDTO) {
+    public UserGoalDTO updateDTO(UserGoalDTO userGoalDTO, String email) {
         UserGoal userGoal = userGoalRepository.findById(userGoalDTO.getId())
                 .orElseThrow(() -> new NotFoundException("UserGoal not found with : " + userGoalDTO.getId()));
 
-        User user = userRepository.findById(userGoalDTO.getUserId())
-                .orElseThrow(() -> new NotFoundException("User not found with : " + userGoalDTO.getUserId()));
-        userGoal.setUser(user);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         userGoal.setStartDate(userGoalDTO.getStartDate());
         userGoal.setEndDate(userGoalDTO.getEndDate());

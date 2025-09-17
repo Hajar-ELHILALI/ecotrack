@@ -29,9 +29,9 @@ public class UserActivityController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createUserActivity(@RequestBody ActivityDTO activityDTO, Principal principal) {
-        userActivityService.createActivity(activityDTO, principal.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).build();    }
+    public ResponseEntity<UserActivityDTO> createUserActivity(@RequestBody ActivityDTO activityDTO, Principal principal) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userActivityService.createActivity(activityDTO, principal.getName()));
+    }
 
     @PutMapping
     public ResponseEntity<UserActivityDTO> updateUserActivity(@RequestBody UserActivityDTO userActivityDTO) {

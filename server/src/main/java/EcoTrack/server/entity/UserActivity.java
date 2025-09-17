@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -24,7 +26,7 @@ UserActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double quantity;
-    private Date date;
+    private LocalDate date;
     //enum de type de partage
     @Enumerated(EnumType.STRING)
     @Column(name = "sharing_type", length = 20, nullable = false)

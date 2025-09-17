@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Long> {
     List<Score> findByUserIdOrderByUserActivityDateAsc(Long userId);
-
 }

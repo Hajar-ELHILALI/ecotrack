@@ -16,8 +16,7 @@ public class ScoreDTO {
     private Long id;
     private QualitativeScore qualitativeScore;
     private double totalco2;
-
-    @NotNull
+    private Long userActivity;
     private Long userId;
 
     public ScoreDTO(Score score) {

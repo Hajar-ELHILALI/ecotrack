@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -21,10 +23,8 @@ public class UserActivityDTO {
     @NotNull
     private double quantity;
 
-    @NotNull
-    private Date date;
+    private LocalDate date;
 
-    @Min(1)
     private int nbrPersonnes;
 
     @NotNull

@@ -5,10 +5,8 @@ import EcoTrack.server.DTO.BadgeDTO;
 import EcoTrack.server.entity.User;
 import EcoTrack.server.repository.UserRepository;
 import EcoTrack.server.service.BadgeService;
-import EcoTrack.server.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class BadgeController {
         badgeService.deleteDTOById(id);
     }
 
-    @GetMapping("/me")
+    @GetMapping("/myBadge")
     public ResponseEntity<String> getMyBadgeLabel(Principal principal) {
         String email = principal.getName();
         User user = userRepository.findByEmail(email)

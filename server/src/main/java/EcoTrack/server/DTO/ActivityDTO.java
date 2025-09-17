@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -17,4 +18,5 @@ public class ActivityDTO {
     private double quantity;
     private int nbrPersonnes;
     private SharingType sharingType;
+    private LocalDate date;
 }

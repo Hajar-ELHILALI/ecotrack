@@ -78,7 +78,7 @@ public class UserActivityServiceImpl implements UserActivityService {
         return new UserActivityDTO(userActivityRepository.save(userActivity));
     }
     @Override
-    public void createActivity(ActivityDTO dto, String email) {
+    public UserActivityDTO createActivity(ActivityDTO dto, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -88,13 +88,13 @@ public class UserActivityServiceImpl implements UserActivityService {
         UserActivity activity = new UserActivity();
         activity.setQuantity(dto.getQuantity());
         activity.setNbrPersonnes(dto.getNbrPersonnes());
-        activity.setDate(new Date());
+        activity.setDate(dto.getDate());
         activity.setUser(user);
         activity.setSharingType(dto.getSharingType());
         activity.setActivityType(type);
 
-        userActivityRepository.save(activity);
-
         scoreServiceImpl.calculateAndSaveScore(activity);
+        return new UserActivityDTO(userActivityRepository.save(activity));
+
     }
 }

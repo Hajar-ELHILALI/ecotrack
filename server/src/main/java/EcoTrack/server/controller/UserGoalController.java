@@ -1,10 +1,13 @@
 package EcoTrack.server.controller;
 
 import EcoTrack.server.DTO.UserGoalDTO;
+import EcoTrack.server.entity.UserGoal;
 import EcoTrack.server.service.UserGoalService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -15,28 +18,11 @@ public class UserGoalController {
         this.userGoalService = userGoalService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserGoalDTO> getUserGoal(@PathVariable Long id) {
-        return ResponseEntity.ok(userGoalService.findDTOById(id));
+
+    @PostMapping
+    public ResponseEntity<UserGoalDTO> createGoal(@RequestBody UserGoalDTO dto, Principal principal) {
+        UserGoal savedGoal = userGoalService.createGoal(dto, principal.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new UserGoalDTO(savedGoal));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<UserGoalDTO>> getUserGoals() {
-        return ResponseEntity.ok(userGoalService.findAllDTO());
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<UserGoalDTO> createUserGoal(@RequestBody UserGoalDTO userGoalDTO) {
-        return ResponseEntity.ok(userGoalService.createDTO(userGoalDTO));
-    }
-
-    @PutMapping("/")
-    public ResponseEntity<UserGoalDTO> updateUserGoal(@RequestBody UserGoalDTO userGoalDTO) {
-        return ResponseEntity.ok(userGoalService.updateDTO(userGoalDTO));
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUserGoal(@PathVariable Long id) {
-        userGoalService.deleteDTOById(id);
-    }
 }

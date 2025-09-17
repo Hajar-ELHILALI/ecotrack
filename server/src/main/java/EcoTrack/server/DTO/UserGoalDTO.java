@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -17,22 +18,19 @@ public class UserGoalDTO {
     private Long id;
 
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
 
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
 
     private boolean goalAchieved;
 
     @NotNull
     private Double emissionTarget;
 
-    @NotNull
-    private Long userId;
 
     public UserGoalDTO(UserGoal userGoal) {
         setId(userGoal.getId());
-        setUserId(userGoal.getUser().getId());
         setStartDate(userGoal.getStartDate());
         setEndDate(userGoal.getEndDate());
         setEmissionTarget(userGoal.getEmissionTarget());
