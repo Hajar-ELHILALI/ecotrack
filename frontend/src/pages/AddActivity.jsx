@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AccountNavbar from "../components/AccountNavbar";
 import axios from "axios";
-import LabelField from "../components/LabelField";  // ✅ import corrigé
+import LabelField from "../components/LabelField";  
 import Popup from "../components/Popup";
 
 const AddActivity = () => {
@@ -17,7 +17,6 @@ const AddActivity = () => {
   const increment = () => setNbrPersonnes((prev) => prev + 1);
   const decrement = () => setNbrPersonnes((prev) => (prev > 1 ? prev - 1 : 1));
 
-  // Charger catégories
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
     axios
@@ -28,7 +27,6 @@ const AddActivity = () => {
       .catch((error) => console.log("Erreur lors du chargement des catégories:", error));
   }, []);
 
-  // Charger types d’activité selon la catégorie
   useEffect(() => {
     if (!categoryType) return;
     const token = localStorage.getItem("jwtToken");
@@ -40,7 +38,6 @@ const AddActivity = () => {
       .catch((error) => console.log("Erreur lors du chargement des types d'activité:", error));
   }, [categoryType]);
 
-  // Soumettre
   const handleSubmit = async () => {
     const token = localStorage.getItem("jwtToken");
     const payload = {
