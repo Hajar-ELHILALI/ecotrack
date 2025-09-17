@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomePage from "./pages/HomePage"
+import Activities from "./pages/Activities"
+import AddActivity from "./pages/AddActivity"
 
 function App() {
   return (
@@ -11,8 +13,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/HomePage" element={<HomePage />} />
-
-     
+      <Route path="/activities" element={<Activities />} />
+      <Route path="/addActivity" element={<AddActivity />} />
     </Routes>
   );
 }

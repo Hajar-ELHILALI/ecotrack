@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {profil, list, advice, goals, addActivity, statistics, accountMenu, accountCross} from '../assets'
 import Card from '../components/Card'
+import { Link } from "react-router-dom";
+
 
 
 const HomePage = () => {
@@ -30,16 +32,17 @@ const HomePage = () => {
             <div className='flex justify-start  cursor-pointer'>
               <img onClick={() => setShowMenu(false)} src={accountCross} className='w-10' alt="" />
             </div>
-            <a href="#myAccount"> Account</a>
-            <a href="#addActivity"> Add activity</a>
-            <a href="#activities"> My activities</a>
-            <a href="#statistiques"> Statistics</a>
-            <a href="#advices"> Advices</a>
-            <a href="#goals"> My goals</a>
-            <a href="#badges"> My badges</a>
-            <a href="#Review"> Add review</a>
-            <a href="#settings"> settings</a> 
-            <a href="#Login"> Sign out</a>
+              <Link to="/homePage">Home</Link>
+              <Link to="/myAccount"> Account</Link>
+              <Link to="/addActivity">Add Activity</Link>
+              <Link to="/activities">My activities</Link>
+              <Link to="/statistics"> Statistics</Link>
+              <Link to="/advices"> Advices</Link>
+              <Link to="/goals"> My goals</Link>
+              <Link to="/badges"> My badges</Link>
+              <Link to="/Review"> Add review</Link>
+              <Link to="/settings"> settings</Link> 
+              <Link to="/login"> Sign out</Link>
           </div>
 
           
@@ -53,18 +56,18 @@ const HomePage = () => {
 
         {showProfileMenu && (
           <div className="absolute right-0 mt-2 text-green-600 w-40 bg-white shadow-lg rounded-lg py-2">
-            <a href="#account" className="block px-4 py-2  hover:bg-gray-100">Account</a>
-            <a href="#Login" className="block px-4 py-2  hover:bg-gray-100">Sign out</a>
+            <Link to="/myAccount" className="block px-4 py-2 hover:bg-gray-100">Account</Link>
+            <Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Sign out</Link>
           </div>
         )}
       </div> 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 ">
-          <Card image={addActivity} title="Add activity" href="#addActivity"/>
-          <Card image={list} title="Activities list" href="#activities"/>
-          <Card image={statistics} title="Statistics" href="#statistic"/>
-          <Card image={advice} title="Advices" href="#advices"/>
-          <Card image={goals} title="Goals" href="#goals"/>
+          <Card image={addActivity} title="Add activity" href="/addActivity"/>
+          <Card image={list} title="Activities list" href="/activities"/>
+          <Card image={statistics} title="Statistics" href="/statistics"/>
+          <Card image={advice} title="Advices" href="/advices"/>
+          <Card image={goals} title="Goals" href="/goals"/>
       </div>
 
       {/* <div className="flex justify-center mt-6">
