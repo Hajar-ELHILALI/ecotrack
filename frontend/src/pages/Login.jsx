@@ -24,11 +24,15 @@ const Login = () => {
           'Content-Type': 'application/json'
         }
       })
-       if (response.status === 200) {
-        setTimeout(() => {
-          navigate('/HomePage')
-        }, 1000) 
-      }
+      if (response.status === 200) {
+     
+      const token = response.data;
+      localStorage.setItem("jwtToken", token);
+
+      setTimeout(() => {
+        navigate('/HomePage');
+      }, 1000);
+    }
 
     } catch(error){
       setPopupMessage("Login failed" )

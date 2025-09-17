@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({ image, title,href }) => {
   return (
     <div className="flex flex-col items-center bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition duration-300 h-64">
-      <a href="href">
+      <a href={href}>
       <img 
         src={image} 
         alt={title} 

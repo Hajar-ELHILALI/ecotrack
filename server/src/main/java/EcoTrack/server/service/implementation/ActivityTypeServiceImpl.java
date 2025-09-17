@@ -69,4 +69,16 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
         activityTypeRepository.deleteById(id);
     }
 
+    @Override
+    public List<ActivityTypeDTO> findActivityTypesByCategory(Long categoryId) {
+        List<ActivityType> activityTypes = activityTypeRepository.findByCategoryId(categoryId);
+        if (activityTypes.isEmpty()) {
+            throw new NotFoundException("No ActivityTypes found for categoryId: " + categoryId);
+        }
+        return activityTypes.stream()
+                .map(ActivityTypeDTO::new)
+                .toList();
+    }
+
+
 }
