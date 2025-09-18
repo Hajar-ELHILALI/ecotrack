@@ -25,7 +25,7 @@ public class CountryController{
         return ResponseEntity.ok(countryService.findAllDTO());
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CountryDTO> getCountryById(@PathVariable Long id){
         return ResponseEntity.ok(countryService.findDTOById(id));
     }
