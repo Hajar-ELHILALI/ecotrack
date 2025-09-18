@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import HomePage from "./pages/HomePage"
 import Activities from "./pages/Activities"
 import AddActivity from "./pages/AddActivity"
+import Badge from "./pages/Badge"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/HomePage" element={<HomePage />} />
       <Route path="/activities" element={<Activities />} />
       <Route path="/addActivity" element={<AddActivity />} />
+      <Route path="/badge" element={<Badge />} />
     </Routes>
   );
 }
