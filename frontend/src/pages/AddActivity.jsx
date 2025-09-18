@@ -10,8 +10,9 @@ const AddActivity = () => {
   const [categoryType, setCategoryType] = useState("");
   const [name, setName] = useState("");
   const [nbrPersonnes, setNbrPersonnes] = useState(1);
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0.0);
   const [sharingType, setSharingType] = useState("PRIVATE");
+  const [date, setDate] = useState("")
   const [popup, setPopup] = useState({ isOpen: false, message: "", type: "success" });
 
   const increment = () => setNbrPersonnes((prev) => prev + 1);
@@ -45,6 +46,7 @@ const AddActivity = () => {
       nbrPersonnes,
       quantity: parseFloat(quantity),
       sharingType,
+      date,
     };
 
     try {
@@ -130,6 +132,19 @@ const AddActivity = () => {
               placeholder="Quantity"
             />
           </div>
+
+          <div>
+            <label className="mb-1 block text-orange-600 font-medium">Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-24 text-center text-orange-800 border border-green-600 rounded p-1"
+              placeholder="Date"
+            />
+          </div>
+
+
 
           <button
             type="button"
