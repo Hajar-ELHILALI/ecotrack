@@ -11,7 +11,7 @@ const AddActivity = () => {
   const [name, setName] = useState("");
   const [nbrPersonnes, setNbrPersonnes] = useState(1);
   const [quantity, setQuantity] = useState(0.0);
-  const [sharingType, setSharingType] = useState("PRIVATE");
+  const [sharingType, setSharingType] = useState("SOLO");
   const [date, setDate] = useState("")
   const [popup, setPopup] = useState({ isOpen: false, message: "", type: "success" });
 
@@ -72,7 +72,7 @@ const AddActivity = () => {
             onChange={(e) => setSharingType(e.target.value)}
             options={[
               { id: "PRIVATE", name: "PRIVATE" },
-              { id: "FRIENDS", name: "FRIENDS" },
+              { id: "SOLO", name: "SOLO" },
               { id: "PUBLIC", name: "PUBLIC" },
             ]}
           />
