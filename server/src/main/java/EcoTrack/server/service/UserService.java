@@ -5,6 +5,7 @@ import EcoTrack.server.DTO.UserDTO;
 import EcoTrack.server.entity.User;
 import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserService extends CrudDTO<UserDTO, Long> {
@@ -13,4 +14,5 @@ public interface UserService extends CrudDTO<UserDTO, Long> {
     UserDTO findById(Long id);
     List<User> findAll();
     ResponseEntity<Void> register(RegisterRequestDTO registerRequestDTO);
+    User getFromPrincipal(Principal principal);
 }
