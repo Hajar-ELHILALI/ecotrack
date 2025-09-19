@@ -47,4 +47,11 @@ public class ActivityTypeController {
     public ResponseEntity<ActivityTypeDTO> updateActivityType(@RequestBody @Valid ActivityTypeDTO activityTypeDTO) {
         return ResponseEntity.ok(activityTypeService.updateDTO(activityTypeDTO));
     }
+
+    @GetMapping("/by-category/{categoryId}")
+    public ResponseEntity<List<ActivityTypeDTO>> getActivityTypesByCategory(@PathVariable Long categoryId) {
+        List<ActivityTypeDTO> activityTypes = activityTypeService.findActivityTypesByCategory(categoryId);
+        return ResponseEntity.ok(activityTypes);
+    }
+
 }

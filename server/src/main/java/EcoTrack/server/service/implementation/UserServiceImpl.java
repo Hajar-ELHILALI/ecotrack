@@ -5,15 +5,18 @@ import EcoTrack.server.DTO.UserDTO;
 import EcoTrack.server.entity.*;
 import EcoTrack.server.enums.BadgeLabel;
 import EcoTrack.server.repository.*;
+import EcoTrack.server.security.UserDetailsImpl;
 import EcoTrack.server.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import EcoTrack.server.exception.NotFoundException;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +28,16 @@ public class UserServiceImpl implements UserService {
     private final CountryRepository countryRepository;
     private final PasswordEncoder passwordEncoder;
     private final BadgeRepository badgeRepository;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, CountryRepository countryRepository, PasswordEncoder passwordEncoder, BadgeRepository badgeRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, CountryRepository countryRepository, PasswordEncoder passwordEncoder, BadgeRepository badgeRepository, UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.countryRepository = countryRepository;
         this.passwordEncoder = passwordEncoder;
         this.badgeRepository = badgeRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Transactional
@@ -126,6 +131,16 @@ public class UserServiceImpl implements UserService {
     public void deleteDTOById(Long id) {
         userRepository.deleteById(id);
 
+    }
+
+    @Override
+    public User getFromPrincipal(Principal principal){
+        UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(principal.getName());
+        if (userDetails == null) {
+            return null;
+        } else {
+            return userDetails.getUser();
+        }
     }
 
     @Override

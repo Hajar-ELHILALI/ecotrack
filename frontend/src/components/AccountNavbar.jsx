@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { profil, accountMenu, accountCross } from '../assets';
+import { Link } from "react-router-dom";
 
 const AccountNavbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -34,16 +35,17 @@ const AccountNavbar = () => {
               alt="Close menu"
             />
           </div>
-          <a href="#myAccount">Account</a>
-          <a href="#addActivity">Add activity</a>
-          <a href="#activities">My activities</a>
-          <a href="#statistiques">Statistics</a>
-          <a href="#advices">Advices</a>
-          <a href="#goals">My goals</a>
-          <a href="#badges">My badges</a>
-          <a href="#Review">Add review</a>
-          <a href="#settings">Settings</a>
-          <a href="#Login">Sign out</a>
+            <Link to="/homePage">Home</Link>
+            <Link to="/myAccount"> Account</Link>
+            <Link to="/addActivity">Add Activity</Link>
+            <Link to="/activities">My activities</Link>
+            <Link to="/statistics"> Statistics</Link>
+            <Link to="/advices"> Advices</Link>
+            <Link to="/goals"> My goals</Link>
+            <Link to="/badge"> My badge</Link>
+            <Link to="/Review"> Add review</Link>
+            <Link to="/settings"> settings</Link> 
+            <Link to="/login"> Sign out</Link>
         </div>
       )}
 
@@ -55,8 +57,8 @@ const AccountNavbar = () => {
 
         {showProfileMenu && (
           <div className="absolute right-0 mt-2 text-green-600 w-40 bg-white shadow-lg rounded-lg py-2 z-50">
-            <a href="#account" className="block px-4 py-2 hover:bg-gray-100">Account</a>
-            <a href="#Login" className="block px-4 py-2 hover:bg-gray-100">Sign out</a>
+            <Link to="/myAccount" className="block px-4 py-2 hover:bg-gray-100">Account</Link>
+            <Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Sign out</Link>
           </div>
         )}
       </div>

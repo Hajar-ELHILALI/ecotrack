@@ -10,6 +10,9 @@ import addActivity from './images/addActivity.png'
 import statistics from './images/statistics.png'
 import accountMenu from './icons/menu2.png'
 import accountCross from './icons/accountCross.png'
+import welcome from './images/welcome.png'
+import target from './images/target.png'
+import planetHero from './images/planetHero.png'
 
 
 export {
@@ -24,7 +27,10 @@ export {
   addActivity,
   statistics,
   accountMenu,
-  accountCross
+  accountCross,
+  welcome,
+  target,
+  planetHero
 };
 
 
