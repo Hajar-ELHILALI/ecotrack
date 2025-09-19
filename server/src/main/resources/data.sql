@@ -53,13 +53,13 @@ INSERT INTO users (user_name, email, password, role_id, badge_id, country_id) VA
                                                                                   ('berlin_eco', 'berlin@example.com', '$2a$10$dummyhash', 1, 1, 3),
                                                                                   ('tokyo_saver', 'tokyo@example.com', '$2a$10$dummyhash', 1, 2, 4);
 
--- 9. Insertion des activités utilisateur (LocalDateTime)
+-- 9. Insertion des activités utilisateur
 INSERT INTO users_activities (quantity, date, sharing_type, nbr_personnes, activity_type_id, user_id) VALUES
-                                                                                                          (50.0, '2023-11-01 08:30:00', 'SOLO', 1, 1, 1),
-                                                                                                          (120.0, '2023-11-02 14:45:00', 'HOUSEHOLD', 4, 2, 2),
-                                                                                                          (2.5, '2023-11-03 09:15:00', 'PRIVATE', 2, 3, 3),
-                                                                                                          (150.0, '2023-11-04 18:00:00', 'PUBLIC', 1, 4, 4),
-                                                                                                          (5000.0, '2023-11-05 07:20:00', 'SOLO', 1, 5, 5);
+                                                                                                          (50.0, '2023-11-01', 'SOLO', 1, 1, 1),
+                                                                                                          (120.0, '2023-11-02', 'SOLO', 4, 2, 2),
+                                                                                                          (2.5, '2023-11-03', 'PRIVATE', 2, 3, 3),
+                                                                                                          (150.0, '2023-11-04', 'PUBLIC', 1, 4, 4),
+                                                                                                          (5000.0, '2023-11-05', 'SOLO', 1, 5, 5);
 
 -- 10. Insertion des scores
 INSERT INTO scores (qualitative_score, totalco2, user_id, userActivity_id) VALUES
@@ -90,10 +90,10 @@ INSERT INTO advice_histories (is_read, is_applied, sent_date, advice_id, user_id
                                                                                       (false, false, '2023-11-03', 3, 3);
 
 -- 14. Table usersGoals (LocalDate)
---INSERT INTO users_Goals (id, start_date, end_date, goal_achieved, emission_target, user_id) VALUES
-  --                                                                                              (1, '2023-11-01', '2023-12-01', false, 100.0, 1),
-    --                                                                                            (2, '2023-11-01', '2023-11-15', true, 50.0, 2),
-      --                                                                                          (3, '2023-10-01', '2023-11-01', false, 200.0, 3);
+INSERT INTO users_Goals (start_date, end_date, goal_achieved, emission_target, user_id) VALUES
+                                                                                                  ( '2023-11-01', '2023-12-01', false, 100.0, 1),
+                                                                                                  ( '2023-11-01', '2023-11-15', true, 50.0, 2),
+                                                                                                  ( '2023-10-01', '2023-11-01', false, 200.0, 3);
 
 -- 15. Table usersReviews (LocalDate)
 INSERT INTO users_Reviews (id, rating, comment, createdAT, user_id) VALUES

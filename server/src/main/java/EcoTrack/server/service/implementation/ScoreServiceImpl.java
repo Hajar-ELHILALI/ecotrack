@@ -1,6 +1,8 @@
 package EcoTrack.server.service.implementation;
 
 import EcoTrack.server.DTO.ScoreDTO;
+import EcoTrack.server.DTO.StatisticPointDTO;
+import EcoTrack.server.DTO.StatisticsResponseDTO;
 import EcoTrack.server.DTO.statisticDTO;
 import EcoTrack.server.entity.*;
 import EcoTrack.server.enums.CategoryType;
@@ -14,7 +16,10 @@ import EcoTrack.server.repository.UserRepository;
 import EcoTrack.server.service.ScoreService;
 import org.springframework.stereotype.Service;
 
+import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -133,6 +138,59 @@ public class ScoreServiceImpl implements ScoreService {
         return scoreRepository.findByUserIdOrderByUserActivityDateAsc(userId)
                 .stream()
                 .map(statisticDTO::new)
+                .toList();
+    }
+
+    @Override
+    public StatisticsResponseDTO getUserStatistics(Long userId, String period) {
+        List<Score> scores = scoreRepository.findByUserId(userId);
+
+        // Grouper par catégorie
+        Map<CategoryType, List<Score>> byCategory = scores.stream()
+                .collect(Collectors.groupingBy(s -> s.getUserActivity().getActivityType().getCategory().getCategoryType()));
+
+        // Construire la réponse
+        return new StatisticsResponseDTO(
+                buildPoints(byCategory.get(CategoryType.TRANSPORT), period),
+                buildPoints(byCategory.get(CategoryType.ELECTRICITY), period),
+                buildPoints(byCategory.get(CategoryType.NUTRITION), period)
+        );
+    }
+
+    private List<StatisticPointDTO> buildPoints(List<Score> scores, String period) {
+        if (scores == null) return List.of();
+
+        Map<String, Double> grouped;
+
+        switch (period.toLowerCase()) {
+            case "daily":
+                grouped = scores.stream().collect(Collectors.groupingBy(
+                        s -> s.getUserActivity().getDate().toString(),
+                        Collectors.summingDouble(Score::getTotalco2)
+                ));
+                break;
+
+            case "monthly":
+                grouped = scores.stream().collect(Collectors.groupingBy(
+                        s -> YearMonth.from(s.getUserActivity().getDate()).toString(),
+                        Collectors.summingDouble(Score::getTotalco2)
+                ));
+                break;
+
+            case "yearly":
+                grouped = scores.stream().collect(Collectors.groupingBy(
+                        s -> String.valueOf(s.getUserActivity().getDate().getYear()),
+                        Collectors.summingDouble(Score::getTotalco2)
+                ));
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid period: " + period);
+        }
+
+        return grouped.entrySet().stream()
+                .map(e -> new StatisticPointDTO(e.getKey(), e.getValue()))
+                .sorted(Comparator.comparing(StatisticPointDTO::getDate))
                 .toList();
     }
 }

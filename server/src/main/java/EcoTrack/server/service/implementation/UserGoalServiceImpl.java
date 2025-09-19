@@ -1,5 +1,6 @@
 package EcoTrack.server.service.implementation;
 
+import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.DTO.UserGoalDTO;
 import EcoTrack.server.entity.User;
 import EcoTrack.server.entity.UserGoal;
@@ -38,7 +39,7 @@ public class UserGoalServiceImpl implements UserGoalService {
     }
 
     @Override
-    public UserGoal createGoal(UserGoalDTO dto, String email) {
+    public UserGoalDTO createGoal(UserGoalDTO dto, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -49,7 +50,7 @@ public class UserGoalServiceImpl implements UserGoalService {
         goal.setGoalAchieved(false);
         goal.setUser(user);
 
-        return userGoalRepository.save(goal);
+        return new UserGoalDTO(userGoalRepository.save(goal));
     }
 
     public UserGoalDTO updateDTO(UserGoalDTO userGoalDTO, String email) {

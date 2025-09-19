@@ -21,8 +21,8 @@ public class UserGoalController {
 
     @PostMapping
     public ResponseEntity<UserGoalDTO> createGoal(@RequestBody UserGoalDTO dto, Principal principal) {
-        UserGoal savedGoal = userGoalService.createGoal(dto, principal.getName());
-        return ResponseEntity.status(HttpStatus.CREATED).body(new UserGoalDTO(savedGoal));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userGoalService.createGoal(dto, principal.getName()));
+
     }
 
 }
