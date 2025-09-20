@@ -29,7 +29,7 @@ const AddGoal = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center gap-4 mt-4 items-center w-96 h-96 shadow-xl ml-48">
+    <div className="flex flex-col justify-center gap-4 mt-4 items-center w-96 h-96 shadow-xl ml-96">
      
 
       <h2 className="text-orange-600 font-bold text-lg underline">Add goal</h2>

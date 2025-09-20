@@ -67,7 +67,7 @@ const AddActivity = () => {
         <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-xl space-y-4">
 
           <LabelField
-            label="Sharing Type"
+            label="Sharing Type:"
             value={sharingType}
             onChange={(e) => setSharingType(e.target.value)}
             options={[
@@ -78,7 +78,7 @@ const AddActivity = () => {
           />
 
           <LabelField
-            label="Category"
+            label="Category:"
             value={categoryType}
             onChange={(e) => setCategoryType(e.target.value)}
             options={categories}
@@ -87,7 +87,7 @@ const AddActivity = () => {
           />
 
           <LabelField
-            label="Activity Type"
+            label="Activity Type:"
             value={name}
             onChange={(e) => setName(e.target.value)}
             options={activityTypes}
@@ -96,7 +96,7 @@ const AddActivity = () => {
           />
 
           <div className="flex items-center gap-2">
-            <label className="mb-1 block text-orange-600 font-medium">Number of people</label>
+            <label className="mb-1 block text-orange-600 font-medium">Share whith: </label>
             <button
               type="button"
               onClick={decrement}
@@ -121,7 +121,7 @@ const AddActivity = () => {
           </div>
 
           <div>
-            <label className="mb-1 block text-orange-600 font-medium">Quantity</label>
+            <label className="mb-1 block text-orange-600 font-medium">Quantity:</label>
             <input
               type="number"
               step="0.1"
@@ -134,7 +134,7 @@ const AddActivity = () => {
           </div>
 
           <div>
-            <label className="mb-1 block text-orange-600 font-medium">Date</label>
+            <label className="mb-1 block text-orange-600 font-medium">Date:</label>
             <input
               type="date"
               value={date}

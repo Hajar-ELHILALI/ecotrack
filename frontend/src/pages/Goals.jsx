@@ -65,7 +65,7 @@ const Goals = () => {
   }
 
   return (
-    <div className="min-h-screen ml-4">
+    <div className=" min-h-screen ml-4">
       <AccountNavbar />
       <AddGoal />
       <div className="min-h-screen">
