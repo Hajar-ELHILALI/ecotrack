@@ -7,6 +7,7 @@ import Activities from "./pages/Activities"
 import AddActivity from "./pages/AddActivity"
 import Badge from "./pages/Badge"
 import Account from "./pages/Account"
+import Goals from "./pages/Goals"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/addActivity" element={<AddActivity />} />
       <Route path="/badge" element={<Badge />} />
       <Route path="/myAccount" element={<Account />} />
+      <Route path="/goals" element={<Goals />} />
     </Routes>
   );
 }
