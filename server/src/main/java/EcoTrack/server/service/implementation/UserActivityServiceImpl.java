@@ -97,4 +97,10 @@ public class UserActivityServiceImpl implements UserActivityService {
         return new UserActivityDTO(userActivityRepository.save(activity));
 
     }
+
+    @Override
+    public List<UserActivity> getUserActivitiesByUserId(Long id){
+        List<UserActivity> userActivities = userActivityRepository.findUserActivityByUserId(id);
+        return userActivities;
+    }
 }

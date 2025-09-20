@@ -2,6 +2,8 @@ package EcoTrack.server.controller;
 
 import EcoTrack.server.DTO.ActivityDTO;
 import EcoTrack.server.DTO.UserActivityDTO;
+import EcoTrack.server.DTO.UserGoalDTO;
+import EcoTrack.server.entity.UserActivity;
 import EcoTrack.server.service.UserActivityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +43,14 @@ public class UserActivityController {
     @DeleteMapping("/{id}")
     public void deleteUserActivity(@PathVariable Long id) {
         userActivityService.deleteDTOById(id);
+    }
+
+    @GetMapping("/byUser/{id}")
+    public ResponseEntity<List<UserActivityDTO>> getUserActivityByUserId(@PathVariable Long id) {
+        List<UserActivity> userActivities = userActivityService.getUserActivitiesByUserId(id);
+        List<UserActivityDTO> useActivityDTOs = userActivities.stream()
+                .map(UserActivityDTO::new)
+                .toList();
+        return ResponseEntity.ok(useActivityDTOs);
     }
 }
