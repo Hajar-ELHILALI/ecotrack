@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import AccountNavbar from "../components/AccountNavbar"
 import axios from 'axios'
+import Popup from "../components/Popup"
 
 const Review = () => {
   const [rating, setRating] = useState(0)
@@ -129,6 +130,13 @@ const Review = () => {
           >
             Save
           </button>
+
+          <Popup
+            isOpen={popup.isOpen}
+            message={popup.message}
+            type={popup.type}
+            onClose={() => setPopup({ ...popup, isOpen: false })}
+          />
       </div>
 
       <div className="min-h-screen text-green-600 ml-4">
