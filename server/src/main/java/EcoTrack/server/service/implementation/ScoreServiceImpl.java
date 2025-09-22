@@ -102,7 +102,7 @@ public class ScoreServiceImpl implements ScoreService {
         score.setUser(user);
         score.setTotalco2(emission);
         score.setQualitativeScore(qualitative);
-        score.getUserActivity();
+        score.setUserActivity(activity);
         scoreRepository.save(score);
     }
 

@@ -3,6 +3,7 @@ package EcoTrack.server.controller;
 import EcoTrack.server.DTO.HistoricAdviceDTO;
 import EcoTrack.server.service.HistoricAdviceService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +39,11 @@ public class HistoricAdviceController {
     @DeleteMapping("/{id}")
     public void deleteHistoricAdvice(@PathVariable Long id) {
         historicAdviceService.deleteDTOById(id);
+    }
+
+    @GetMapping("/me")
+    public List<HistoricAdviceDTO> getMyAdvices(Authentication authentication) {
+        String email = authentication.getName();
+        return historicAdviceService.getHistoricAdvicesForUser(email);
     }
 }

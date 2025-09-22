@@ -92,9 +92,9 @@ public class UserActivityServiceImpl implements UserActivityService {
         activity.setUser(user);
         activity.setSharingType(dto.getSharingType());
         activity.setActivityType(type);
-
-        scoreServiceImpl.calculateAndSaveScore(activity);
-        return new UserActivityDTO(userActivityRepository.save(activity));
+        UserActivity savedActivity = userActivityRepository.save(activity);
+        scoreServiceImpl.calculateAndSaveScore(savedActivity);
+        return new UserActivityDTO(savedActivity);
 
     }
 

@@ -75,4 +75,13 @@ public class HistoricAdviceServiceImpl implements HistoricAdviceService {
         return new HistoricAdviceDTO(historicAdviceRepository.save(historicAdvice));
 
     }
+
+    @Override
+    public List<HistoricAdviceDTO> getHistoricAdvicesForUser(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return historicAdviceRepository.findByUser(user).stream()
+                .map(HistoricAdviceDTO::new)
+                .toList();
+    }
 }
