@@ -8,6 +8,7 @@ import AddActivity from "./pages/AddActivity"
 import Badge from "./pages/Badge"
 import Account from "./pages/Account"
 import Goals from "./pages/Goals"
+import Review from "./pages/Review"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/badge" element={<Badge />} />
       <Route path="/myAccount" element={<Account />} />
       <Route path="/goals" element={<Goals />} />
+      <Route path="/review" element={<Review />} />
     </Routes>
   );
 }

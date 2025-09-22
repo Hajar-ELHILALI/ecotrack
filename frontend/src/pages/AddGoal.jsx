@@ -9,6 +9,14 @@ const AddGoal = () => {
   const [popup, setPopup] = useState({ isOpen: false, message: "", type: "success" });
 
   const handleSubmit = async () => {
+     if (new Date(startDate) >= new Date(endDate)) {
+    setPopup({ 
+      isOpen: true, 
+      message: "Start date must be earlier than end date", 
+      type: "error" 
+    });
+    return;
+  }
     const token = localStorage.getItem("jwtToken");
     const payload = {
       startDate,

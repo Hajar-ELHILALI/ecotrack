@@ -82,11 +82,11 @@ const Activities = () => {
       <AccountNavbar />
       <div className="flex flex-col items-center">
         <h2 className="font-bold text-orange-600 text-lg underline">Activities List</h2>
-        <div className="flex-col shadow-xl w-96 min-h-screen mt-6 text-green-600">
+        <div className="flex-col shadow-xl w-96 min-h-screen mt-6 text-green-600 w-screen">
           <ol className="list-decimal pl-5">
             {userActivities.length > 0 ? (
               userActivities.map((activity) => (
-                <li key={activity.id} className="p-2 border-b border-green-200">
+                <li key={activity.id} className="shadow-xl p-6 rounded-lg bg-white border-l-4 border-orange-600 mt-2">
                   <p><span className="font-semibold">Type:</span> {activity.activityTypeName}</p>
                   <p><span className="font-semibold">Category:</span> {activity.categoryType}</p>
                   <p><span className="font-semibold">Quantity:</span> {activity.quantity}</p>

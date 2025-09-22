@@ -53,10 +53,10 @@ const AddActivity = () => {
       await axios.post("http://localhost:8080/api/user_activities", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setPopup({ isOpen: true, message: "Activité ajoutée avec succès ", type: "success" });
+      setPopup({ isOpen: true, message: "Activity added with success", type: "success" });
     } catch (error) {
       console.error("Erreur lors de l'envoi:", error);
-      setPopup({ isOpen: true, message: "Erreur lors de l'ajout ", type: "error" });
+      setPopup({ isOpen: true, message: "Failed ", type: "error" });
     }
   };
 

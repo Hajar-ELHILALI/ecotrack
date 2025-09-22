@@ -110,7 +110,7 @@ const Goals = () => {
                   </button>
                 </div>
               ) : (
-                <div className="text-green-600 mt-4">
+                <div className="shadow-xl p-6 rounded-lg bg-white border-l-4 border-orange-600 text-green-600 mt-2">
                   <span className="mb-1 text-orange-600 font-medium mr-2">Start date:</span> {goal.startDate} <span className="mb-1 text-orange-600 font-medium mr-2">End Date:</span> {goal.endDate} <span className="mb-1 text-orange-600 font-medium mr-2">emission target:</span> {goal.emissionTarget}
                   <button
                     onClick={() => startEditing(goal)}
