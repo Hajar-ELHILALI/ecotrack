@@ -9,6 +9,8 @@ import Badge from "./pages/Badge"
 import Account from "./pages/Account"
 import Goals from "./pages/Goals"
 import Review from "./pages/Review"
+import Advices from "./pages/Advices"
+import Statistics from "./pages/Statistics"
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path="/myAccount" element={<Account />} />
       <Route path="/goals" element={<Goals />} />
       <Route path="/review" element={<Review />} />
+      <Route path="/advices" element={<Advices />} />
+       <Route path="/statistics" element={<Statistics />} />
     </Routes>
   );
 }
