@@ -40,7 +40,7 @@ const HomePage = () => {
               <Link to="/advices"> Advices</Link>
               <Link to="/goals"> My goals</Link>
               <Link to="/badge"> My badge</Link>
-              <Link to="/Review"> Add review</Link>
+              <Link to="/review"> Add review</Link>
               <Link to="/settings"> settings</Link> 
               <Link to="/login"> Sign out</Link>
           </div>

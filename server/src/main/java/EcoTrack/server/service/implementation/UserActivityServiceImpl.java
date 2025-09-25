@@ -92,9 +92,15 @@ public class UserActivityServiceImpl implements UserActivityService {
         activity.setUser(user);
         activity.setSharingType(dto.getSharingType());
         activity.setActivityType(type);
+        UserActivity savedActivity = userActivityRepository.save(activity);
+        scoreServiceImpl.calculateAndSaveScore(savedActivity);
+        return new UserActivityDTO(savedActivity);
 
-        scoreServiceImpl.calculateAndSaveScore(activity);
-        return new UserActivityDTO(userActivityRepository.save(activity));
+    }
 
+    @Override
+    public List<UserActivity> getUserActivitiesByUserId(Long id){
+        List<UserActivity> userActivities = userActivityRepository.findUserActivityByUserId(id);
+        return userActivities;
     }
 }

@@ -1,18 +1,25 @@
 package EcoTrack.server.controller;
 
+import EcoTrack.server.DTO.UserGoalDTO;
 import EcoTrack.server.DTO.UserReviewDTO;
+import EcoTrack.server.entity.UserGoal;
+import EcoTrack.server.entity.UserReview;
 import EcoTrack.server.service.UserReviewService;
+import EcoTrack.server.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/user_reviews")
 public class UserReviewController {
     private final UserReviewService userReviewService;
-    public UserReviewController(UserReviewService userReviewService) {
+    private final UserService userService;
+    public UserReviewController(UserReviewService userReviewService, UserService userService) {
         this.userReviewService = userReviewService;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -38,5 +45,14 @@ public class UserReviewController {
     @DeleteMapping("/{id}")
     public void deleteUserReview(@PathVariable Long id) {
         userReviewService.deleteDTOById(id);
+    }
+
+    @GetMapping("/byUser/")
+    public ResponseEntity<List<UserReviewDTO>> findUserReviews(Principal principal) {
+        List<UserReview> userReviews = userReviewService.findUserReviews(userService.getFromPrincipal(principal).getId());
+        List<UserReviewDTO> userReviewDTOS = userReviews.stream()
+                .map(UserReviewDTO::new)
+                .toList();
+        return ResponseEntity.ok(userReviewDTOS);
     }
 }

@@ -85,4 +85,16 @@ public class NotificationServiceImpl implements NotificationService {
 
         return ResponseEntity.ok(notificationDTOs);
     }
+
+    @Override
+    public List<NotificationDTO> getNotificationsByUser(Principal principal){
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+        List<Notification> notifications = notificationRepository.findByUser(user);
+
+        List<NotificationDTO> notificationDTOs = notifications.stream()
+                .map(NotificationDTO::new)
+                .toList();
+        return notificationDTOs;
+    }
 }

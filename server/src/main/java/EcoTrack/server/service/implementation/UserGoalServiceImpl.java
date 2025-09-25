@@ -34,6 +34,7 @@ public class UserGoalServiceImpl implements UserGoalService {
         return userGoalRepository.findAll().stream().map(UserGoalDTO::new).toList();
     }
 
+    @Override
     public void deleteDTOById(Long id) {
         userGoalRepository.deleteById(id);
     }
@@ -53,6 +54,7 @@ public class UserGoalServiceImpl implements UserGoalService {
         return new UserGoalDTO(userGoalRepository.save(goal));
     }
 
+    @Override
     public UserGoalDTO updateDTO(UserGoalDTO userGoalDTO, String email) {
         UserGoal userGoal = userGoalRepository.findById(userGoalDTO.getId())
                 .orElseThrow(() -> new NotFoundException("UserGoal not found with : " + userGoalDTO.getId()));
@@ -69,6 +71,12 @@ public class UserGoalServiceImpl implements UserGoalService {
 
 
 
+    }
+
+    @Override
+    public List<UserGoal> findUserGoals(User user) {
+        List<UserGoal> userGoals = userGoalRepository.findUserGoalByUser(user);
+        return userGoals;
     }
 
 }

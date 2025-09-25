@@ -9,6 +9,7 @@ import EcoTrack.server.repository.UserReviewRepository;
 import EcoTrack.server.service.UserReviewService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +45,7 @@ public class UserReviewServiceImpl implements UserReviewService {
     @Override
     public UserReviewDTO createDTO(UserReviewDTO userReviewDTO) {
         UserReview userReview = new UserReview(userReviewDTO);
+        userReview.setCreatedAT(LocalDate.now());
         User user = userRepository.findById(userReviewDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found with : " + userReviewDTO.getUserId()));
         userReview.setUser(user);
@@ -65,5 +67,11 @@ public class UserReviewServiceImpl implements UserReviewService {
 
         return new UserReviewDTO(userReviewRepository.save(userReview));
 
+    }
+
+    @Override
+    public List<UserReview> findUserReviews(Long userId) {
+        List<UserReview> userReviews = userReviewRepository.getUserReviewByUserId(userId);
+        return userReviews;
     }
 }
