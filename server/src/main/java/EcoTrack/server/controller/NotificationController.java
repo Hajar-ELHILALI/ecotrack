@@ -50,4 +50,9 @@ public class NotificationController {
     public ResponseEntity<List<NotificationDTO>> getUnreadNotifications(Principal principal) {
         return notificationService.getUnreadNotifications(principal);
     }
+    @GetMapping("/me")
+    public ResponseEntity<List<NotificationDTO>> getNotificationsByUser(Principal principal) {
+        List<NotificationDTO> notificationDTOS = notificationService.getNotificationsByUser(principal);
+        return ResponseEntity.ok(notificationDTOS);
+    }
 }
