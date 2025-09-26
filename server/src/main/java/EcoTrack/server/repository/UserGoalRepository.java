@@ -14,6 +14,5 @@ import java.util.List;
 @Repository
 public interface UserGoalRepository extends JpaRepository<UserGoal, Long> {
     List<UserGoal> findUserGoalByUser(User user);
-    @Query("SELECT g FROM UserGoal g WHERE g.endDate <= :today AND g.goalAchieved = false")
-    List<UserGoal> findExpiredUnachievedGoals(@Param("today") LocalDate today);
+    List<UserGoal> findByEndDateLessThanEqualAndGoalAchievedFalse(LocalDate date);
 }

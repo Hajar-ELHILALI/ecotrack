@@ -1,7 +1,10 @@
 package EcoTrack.server.controller;
 
 import EcoTrack.server.DTO.NotificationDTO;
+import EcoTrack.server.entity.User;
+import EcoTrack.server.repository.UserRepository;
 import EcoTrack.server.service.NotificationService;
+import EcoTrack.server.service.UserGoalService;
 import EcoTrack.server.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +18,12 @@ import java.util.List;
 public class NotificationController {
     private final NotificationService notificationService;
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public NotificationController(NotificationService notificationService, UserService userService) {
+    public NotificationController(NotificationService notificationService, UserService userService,UserRepository userRepository) {
         this.notificationService = notificationService;
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/{id}")
@@ -50,6 +55,15 @@ public class NotificationController {
     public ResponseEntity<List<NotificationDTO>> getUnreadNotifications(Principal principal) {
         return notificationService.getUnreadNotifications(principal);
     }
+
+    //c pour  Marquer une notif comme lue
+    @PutMapping("/{id}/markAsRead")
+    public ResponseEntity<NotificationDTO> markNotificationAsRead(
+            @PathVariable Long id,
+            Principal principal) {
+        return ResponseEntity.ok(notificationService.markAsRead(id, principal));
+    }
+
     @GetMapping("/me")
     public ResponseEntity<List<NotificationDTO>> getNotificationsByUser(Principal principal) {
         List<NotificationDTO> notificationDTOS = notificationService.getNotificationsByUser(principal);

@@ -10,5 +10,6 @@ import java.util.List;
 public interface NotificationService extends CrudDTO<NotificationDTO, Long>{
     ResponseEntity<List<NotificationDTO>> getUnreadNotifications(Principal principal);
     List<NotificationDTO> getNotificationsByUser(Principal principal);
+    NotificationDTO markAsRead(Long notificationId, Principal principal);
 }
 

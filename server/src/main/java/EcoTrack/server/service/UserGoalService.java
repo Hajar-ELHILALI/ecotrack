@@ -12,4 +12,5 @@ public interface UserGoalService {
     List<UserGoal> findUserGoals(User user);
     void deleteDTOById(Long id);
     UserGoalDTO updateDTO(UserGoalDTO userGoalDTO, String email);
+    void checkGoalsAndNotify();
 }

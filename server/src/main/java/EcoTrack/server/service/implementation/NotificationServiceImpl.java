@@ -20,6 +20,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
+
     public NotificationServiceImpl(NotificationRepository notificationRepository, UserRepository userRepository) {
         this.notificationRepository = notificationRepository;
         this.userRepository = userRepository;
@@ -85,6 +86,19 @@ public class NotificationServiceImpl implements NotificationService {
 
         return ResponseEntity.ok(notificationDTOs);
     }
+    @Override
+    public NotificationDTO markAsRead(Long notificationId, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Notification notif = notificationRepository.findByIdAndUserId(notificationId, user.getId())
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
+
+        notif.setRead(true);
+        notificationRepository.save(notif);
+
+        return new NotificationDTO(notif);
+    }
 
     @Override
     public List<NotificationDTO> getNotificationsByUser(Principal principal){
@@ -97,4 +111,5 @@ public class NotificationServiceImpl implements NotificationService {
                 .toList();
         return notificationDTOs;
     }
+
 }
