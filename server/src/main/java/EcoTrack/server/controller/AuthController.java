@@ -30,7 +30,6 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
-
     @PostMapping("/login")
 
     public ResponseEntity<String> login(@RequestBody AuthRequestDTO request) {
@@ -42,14 +41,12 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-
     @PostMapping("/register")
 
     public ResponseEntity<Void> saveUser(Authentication authentication, @RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
         if (authentication!= null) {
             return ResponseEntity.badRequest().build();
         }
-        userService.register(registerRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return userService.register(registerRequestDTO);
     }
 }

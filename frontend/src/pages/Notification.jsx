@@ -89,17 +89,19 @@ const Notification = () => {
                   <p className={`${notification.read ? "text-black" : "font-bold"}`}>
                     {notification.content}
                   </p>
-                  <span className="text-sm text-gray-400 ml-4">{notification.date}</span>
+                  <div className="flex flex-col gap-4">
+                    <span className="text-sm text-gray-400 ">{notification.date}</span>
 
-                   <button
-                    onClick={(e) => {
-                       e.stopPropagation()
-                      deleteNotification(notification.id)
-                    }}
-                    className="text-white bg-red-600 rounded-lg p-2"
-                  >
-                    Delete
-                  </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        deleteNotification(notification.id)
+                      }}
+                      className="text-white bg-red-600 rounded-lg p-2"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </li>
