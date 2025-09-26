@@ -13,6 +13,7 @@ import accountCross from './icons/accountCross.png'
 import welcome from './images/welcome.png'
 import target from './images/target.png'
 import planetHero from './images/planetHero.png'
+import notification from './icons/notification.png'
 
 
 export {
@@ -30,7 +31,8 @@ export {
   accountCross,
   welcome,
   target,
-  planetHero
+  planetHero,
+  notification
 };
 
 
