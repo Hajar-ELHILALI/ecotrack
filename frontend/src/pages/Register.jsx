@@ -37,11 +37,31 @@ const Register = () => {
       setPopupType("success")
       setShowPopup(true)
       console.log(response.data);
+
+      setUserName("");
+      setEmail("");
+      setPassword("");
+      setCountryId("");
     } catch(error){
-      setPopupMessage("Registration failed: " + (error.response?.data || error.message))
-      setPopupType("error")
-      setShowPopup(true)
-      console.log(error);
+      let errorMessage = "Registration failed!";
+    
+      switch(error.response?.status) {
+        case 409:
+          errorMessage = "An account with this email already exists!";
+          break;
+        case 400:
+          errorMessage = "Please check your information and try again.";
+          break;
+        case 500:
+          errorMessage = "Server error. Please try again later.";
+          break;
+        default:
+          errorMessage = error.response?.data?.message || error.message || "Registration failed!";
+      }
+      
+      setPopupMessage(errorMessage);
+      setPopupType("error");
+      setShowPopup(true);
     }
   };
   const closePopup = () => setShowPopup(false)

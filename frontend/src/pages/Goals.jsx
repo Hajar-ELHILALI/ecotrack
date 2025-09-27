@@ -65,10 +65,11 @@ const Goals = () => {
   }
 
   return (
-    <div className=" min-h-screen ml-4">
+    <div className="min-h-screen ml-4">
       <AccountNavbar />
       <AddGoal />
-      <div className="min-h-screen">
+      <div className=" flex flex-col min-h-screen">
+         
         <h2 className="text-orange-600 font-bold text-lg underline">My Goals</h2>
         <ol>
           {[...goals].reverse().map((goal) => (

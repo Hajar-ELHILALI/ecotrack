@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {profil, list, advice, goals, addActivity, statistics, accountMenu, accountCross} from '../assets'
+import {profil, list, advice, goals, addActivity, statistics, accountMenu, accountCross, notification} from '../assets'
 import Card from '../components/Card'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.body.style.overflow = showMenu ? 'hidden' : 'auto';
@@ -50,8 +52,11 @@ const HomePage = () => {
       
 
        <div className="fixed top-2 right-2">
+        <button>
+          <img src={notification} className="h-8 w-8 rounded-full" onClick={()=> navigate("/notifications")} alt="notification" />
+        </button>
         <button onClick={() => setShowProfileMenu(!showProfileMenu)}>
-          <img  src={profil} className="h-10 w-10 rounded-full"/>
+          <img  src={profil} className="h-8 w-8 rounded-full"/>
         </button>
 
         {showProfileMenu && (

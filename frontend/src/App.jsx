@@ -11,6 +11,9 @@ import Goals from "./pages/Goals"
 import Review from "./pages/Review"
 import Advices from "./pages/Advices"
 import Statistics from "./pages/Statistics"
+import Notification from "./pages/Notification"
+import UnreadNotifications from "./pages/UnreadNotifications"
+import NotificationById from "./pages/NotificationById"
 
 function App() {
   return (
@@ -26,7 +29,10 @@ function App() {
       <Route path="/goals" element={<Goals />} />
       <Route path="/review" element={<Review />} />
       <Route path="/advices" element={<Advices />} />
-       <Route path="/statistics" element={<Statistics />} />
+      <Route path="/statistics" element={<Statistics />} />
+      <Route path="/notifications" element={<Notification />} />
+      <Route path="/unreadNotifications" element={<UnreadNotifications />} />
+       <Route path="/notification/:id" element={<NotificationById />} />
     </Routes>
   );
 }
