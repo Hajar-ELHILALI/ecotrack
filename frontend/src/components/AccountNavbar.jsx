@@ -39,7 +39,7 @@ const AccountNavbar = () => {
       </div>
 
       {showMenu && (
-        <div className="fixed top-0 left-0 md:flex flex-col text-white bg-green-600 shadow-md h-screen w-40 gap-4 p-2 z-40">
+        <div className="fixed top-0 left-0 flex flex-col text-white bg-green-600 shadow-md h-screen w-40 gap-4 p-2 z-40">
           <div className="flex justify-start cursor-pointer">
             <img
               onClick={() => setShowMenu(false)}
