@@ -90,7 +90,7 @@ public class UserGoalServiceImpl implements UserGoalService {
             notif.setDate(today);
             notif.setRead(false);
             notif.setType("Goal");
-            notif.setContent(achieved ? "🎉 Bravo, objectif atteint !" : "⚠️ Objectif non atteint.");
+            notif.setContent(achieved ? "Congrats, goal achieved!" : "Goal not achieved.");
             notificationRepository.save(notif);
         }
     }
