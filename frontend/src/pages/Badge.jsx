@@ -4,50 +4,74 @@ import axios from 'axios'
 import {welcome, target, planetHero} from '../assets'
 
 const Badge = () => {
-  const [label, setLabel] = useState("")
-  const [description, setDescription] = useState('')
+  const [badge, setBadge] = useState({})
   const [loading, setLoading] = useState(true)
-  const [badge, setBadge] = useState()
+  const [badgeImage, setBadgeImage] = useState()
+  const [badgeId, setBadgeId] = useState()
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await axios.get("http://localhost:8080/api/user/", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-    axios
-      .get("http://localhost:8080/api/user/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
         const userDTO = response.data;
-
         if (userDTO && userDTO.badgeId !== undefined) {
-          switch (userDTO.badgeId) {
+          setBadgeId(userDTO.badgeId);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    if (!badgeId) return;
+
+    const fetchBadge = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await axios.get(
+          `http://localhost:8080/api/badges/${badgeId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const badgeDTO = response.data;
+        setBadge(badgeDTO);
+
+        if (badgeDTO) {
+          switch (badgeDTO.id) {
             case 1:
-              setLabel("Eco_Novice");
-              setDescription("Welcome to the eco team! Every action counts.");
-              setBadge(welcome);
+              setBadgeImage(welcome);
               break;
             case 2:
-              setLabel("Green_Achiever");
-              setDescription("Well done! You make a difference every day.");
-              setBadge(target)
+              setBadgeImage(target);
               break;
             case 3:
-              setLabel("Planet_Hero");
-              setDescription("You are a role model for the planet.");
-              setBadge(planetHero)
+              setBadgeImage(planetHero);
               break;
             default:
-              setLabel("Unknown Badge");
-              setDescription("Badge not recognized.");
+              setBadgeImage(null);
           }
         }
+      } catch (error) {
+        console.error("Error fetching badge:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching user:", error);
-        setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    fetchBadge();
+  }, [badgeId]);
+
 
   if (loading) {
     return (
@@ -65,11 +89,11 @@ const Badge = () => {
           <h2 className="text-orange-600 font-bold text-center text-3xl underline mb-4">My badge</h2>
         <div className="p-6 bg-white rounded-lg shadow-lg text-center space-y-4">
           <div className="flex justify-center">
-            <img src={badge} alt={label} className="w-64 h-64"/>
+            <img src={badgeImage} alt={badge.label} className="w-64 h-64"/>
           </div>
           
-          <h2 className="text-2xl font-bold text-green-600">{label}</h2>
-          <p className="text-green-600">{description}</p>
+          <h2 className="text-2xl font-bold text-green-600">{badge.label}</h2>
+          <p className="text-green-600">{badge.description}</p>
         </div>
       </div>
     </div>

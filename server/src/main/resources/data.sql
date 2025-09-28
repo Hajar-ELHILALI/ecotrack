@@ -11,9 +11,9 @@ INSERT INTO roles (authority) VALUES
 
 -- 3. Insertion des badges
 INSERT INTO badges (label, description) VALUES
-                                            ('Eco_Novice', 'Bienvenue dans la team éco ! Chaque geste compte.'),
-                                            ('Green_Achiever', 'Bravo ! Tu fais la différence chaque jour.'),
-                                            ('Planet_Hero', 'Tu es un modèle pour la planète');
+                                            ('Eco_Novice', 'Welcome to the eco team! Every action counts.'),
+                                            ('Green_Achiever', 'Well done! You make a difference every day.'),
+                                            ('Planet_Hero', 'You are a role model for the planet.');
 
 -- 4. Insertion des pays
 INSERT INTO countries (name, code_iso) VALUES
