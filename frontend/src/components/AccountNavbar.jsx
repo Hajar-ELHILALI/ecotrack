@@ -57,7 +57,6 @@ const AccountNavbar = () => {
           <Link to="/goals">My goals</Link>
           <Link to="/badge">My badge</Link>
           <Link to="/review">Add review</Link>
-          <Link to="/settings">Settings</Link>
           <button 
             onClick={() => {
               localStorage.removeItem("jwtToken");

@@ -104,9 +104,9 @@ const Register = () => {
             onChange={(e) => setCountryId(e.target.value)}
             className="border border-white/50 rounded-lg p-2 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-orange-400"
           >
-            <option value="">Select country</option>
+            <option value="" className="text-orange-600 font-bold">Select country</option>
             {countries.map((c) => (
-              <option key={c.id} value={c.id}>{c.name}</option>
+              <option key={c.id} value={c.id} className="text-orange-600">{c.name}</option>
             ))}
           </select>
           <button
