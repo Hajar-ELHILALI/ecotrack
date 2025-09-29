@@ -14,7 +14,6 @@ import java.util.Optional;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     List<Notification> findByUserAndIsReadFalse(User user);
     List<Notification> findByUser(User user);
-    NotificationDTO markAsRead(Long notificationId, Principal principal);
     Optional<Notification> findByIdAndUserId(Long notificationId, Long userId);
 
 }
