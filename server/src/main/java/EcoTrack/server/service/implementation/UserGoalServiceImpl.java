@@ -1,6 +1,5 @@
 package EcoTrack.server.service.implementation;
 
-import EcoTrack.server.DTO.UserActivityDTO;
 import EcoTrack.server.DTO.UserGoalDTO;
 import EcoTrack.server.entity.Notification;
 import EcoTrack.server.entity.User;
@@ -65,37 +64,6 @@ public class UserGoalServiceImpl implements UserGoalService {
     }
 
     @Override
-    @Scheduled(cron = "0 0 0 * * ?") // chaque jour à minuit
-    @Transactional
-    public void checkGoalsAndNotify() {
-        LocalDate today = LocalDate.now();
-
-        List<UserGoal> goals = userGoalRepository.findByEndDateLessThanEqualAndGoalAchievedFalse(today);
-
-        for (UserGoal goal : goals) {
-            // c pour Calculer la somme des CO2 entre startDate / endDate
-            Double totalCO2 = scoreRepository.sumUserScoresBetweenDates(
-                    goal.getUser().getId(),
-                    goal.getStartDate(),
-                    goal.getEndDate()
-            );
-
-            boolean achieved = totalCO2 != null && totalCO2 <= goal.getEmissionTarget();
-            goal.setGoalAchieved(achieved);
-            userGoalRepository.save(goal);
-
-            // ett puis on ajoute une notif "goal"
-            Notification notif = new Notification();
-            notif.setUser(goal.getUser());
-            notif.setDate(today);
-            notif.setRead(false);
-            notif.setType("Goal");
-            notif.setContent(achieved ? "Congrats, goal achieved!" : "Goal not achieved.");
-            notificationRepository.save(notif);
-        }
-    }
-
-    @Override
     public UserGoalDTO updateDTO(UserGoalDTO userGoalDTO, String email) {
         UserGoal userGoal = userGoalRepository.findById(userGoalDTO.getId())
                 .orElseThrow(() -> new NotFoundException("UserGoal not found with : " + userGoalDTO.getId()));
@@ -109,9 +77,6 @@ public class UserGoalServiceImpl implements UserGoalService {
         userGoal.setEmissionTarget(userGoalDTO.getEmissionTarget());
 
         return new UserGoalDTO(userGoalRepository.save(userGoal));
-
-
-
     }
 
     @Override
@@ -120,4 +85,31 @@ public class UserGoalServiceImpl implements UserGoalService {
         return userGoals;
     }
 
+    //Vérifie si les objectifs sont atteints et envoie des notifs
+    @Transactional
+    public void checkGoalsAndNotify() {
+        LocalDate today = LocalDate.now();
+
+        List<UserGoal> goals = userGoalRepository.findByEndDateLessThanEqualAndGoalAchievedFalse(today);
+
+        for (UserGoal goal : goals) {
+            Double totalCO2 = scoreRepository.sumUserScoresBetweenDates(
+                    goal.getUser().getId(),
+                    goal.getStartDate(),
+                    goal.getEndDate()
+            );
+
+            boolean achieved = totalCO2 != null && totalCO2 <= goal.getEmissionTarget();
+            goal.setGoalAchieved(achieved);
+            userGoalRepository.save(goal);
+
+            Notification notif = new Notification();
+            notif.setUser(goal.getUser());
+            notif.setDate(today);
+            notif.setRead(false);
+            notif.setType("Goal");
+            notif.setContent(achieved ? "Congrats, goal achieved!" : "Goal not achieved.");
+            notificationRepository.save(notif);
+        }
+    }
 }

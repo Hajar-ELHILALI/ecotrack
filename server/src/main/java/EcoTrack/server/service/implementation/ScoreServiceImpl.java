@@ -5,17 +5,17 @@ import EcoTrack.server.DTO.StatisticPointDTO;
 import EcoTrack.server.DTO.StatisticsResponseDTO;
 import EcoTrack.server.DTO.statisticDTO;
 import EcoTrack.server.entity.*;
+import EcoTrack.server.enums.BadgeLabel;
 import EcoTrack.server.enums.CategoryType;
 import EcoTrack.server.enums.QualitativeScore;
 import EcoTrack.server.enums.SharingType;
 import EcoTrack.server.exception.NotFoundException;
-import EcoTrack.server.repository.ActivityTypeRepository;
-import EcoTrack.server.repository.EmissionFactorRepository;
-import EcoTrack.server.repository.ScoreRepository;
-import EcoTrack.server.repository.UserRepository;
+import EcoTrack.server.repository.*;
 import EcoTrack.server.service.ScoreService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Comparator;
 import java.util.List;
@@ -32,12 +32,14 @@ public class ScoreServiceImpl implements ScoreService {
     private final UserRepository userRepository;
     private final EmissionFactorServiceImpl emissionFactorServiceImpl;
     private final EmissionFactorRepository emissionFactorRepository;
+    private final BadgeRepository badgeRepository;
 
-    public ScoreServiceImpl(ScoreRepository scoreRepository, UserRepository userRepository, EmissionFactorServiceImpl emissionFactorServiceImpl, EmissionFactorRepository emissionFactorRepository) {
+    public ScoreServiceImpl(ScoreRepository scoreRepository, UserRepository userRepository, EmissionFactorServiceImpl emissionFactorServiceImpl, EmissionFactorRepository emissionFactorRepository,BadgeRepository badgeRepository) {
         this.scoreRepository = scoreRepository;
         this.userRepository = userRepository;
         this.emissionFactorServiceImpl = emissionFactorServiceImpl;
         this.emissionFactorRepository = emissionFactorRepository;
+        this.badgeRepository = badgeRepository;
     }
 
     @Override

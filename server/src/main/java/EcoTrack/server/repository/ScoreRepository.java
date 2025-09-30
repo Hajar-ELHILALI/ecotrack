@@ -17,4 +17,15 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     Double sumUserScoresBetweenDates(@Param("userId") Long userId,
                                      @Param("start") LocalDate start,
                                      @Param("end") LocalDate end);
+    @Query("SELECT s.user.id, SUM(s.totalco2) " +
+            "FROM Score s " +
+            "WHERE s.userActivity.date BETWEEN :startDate AND :endDate " +
+            "GROUP BY s.user.id")
+    List<Object[]> findMonthlyScores(@Param("startDate") LocalDate startDate,
+                                     @Param("endDate") LocalDate endDate);
+    List<Score> findByUserIdAndUserActivity_DateBetween(
+            Long userId,
+            LocalDate startDate,
+            LocalDate endDate
+    );
 }
