@@ -4,6 +4,7 @@ import { loginBackground } from "../assets";
 import InputField from "../components/InputField";
 import axios from 'axios'
 import Popup from '../components/Popup'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,22 +17,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await axios.post("http://localhost:8080/api/auth/login",{
+      const response = await axios.post("/api/auth/login",{
         email,
         password
-      },{
-        headers: {
-          'Content-Type': 'application/json'
-        }
       })
       if (response.status === 200) {
-     
-      const token = response.data;
-      localStorage.setItem("jwtToken", token);
-
-      setTimeout(() => {
-        navigate('/HomePage');
-      }, 1000);
+        setTimeout(() => {
+          navigate('/homePage');
+        }, 1000);
     }
 
     } catch(error){
@@ -88,12 +81,12 @@ const Login = () => {
         />
         <p className="mt-4 text-center text-white/80">
           Don't have an account?{" "}
-          <a
-            href="/register"
-            className="underline text-orange-300 hover:text-orange-400"
-          >
-            Sign up
-          </a>
+          <Link
+          to="/register"
+          className="underline text-orange-300 hover:text-orange-400"
+        >
+          Sign up
+        </Link>
         </p>
       </div>
     </div>

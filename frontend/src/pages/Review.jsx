@@ -13,12 +13,8 @@ const Review = () => {
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-
     axios
-      .get("http://localhost:8080/api/user/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/user/")
       .then((response) => {
         const userData = response.data
         setUser(userData)
@@ -30,12 +26,8 @@ const Review = () => {
   }, []);
 
    useEffect(() => {
-     const token = localStorage.getItem("jwtToken");
-
      axios
-       .get("http://localhost:8080/api/user_reviews/byUser/", {
-         headers: { Authorization: `Bearer ${token}` },
-      })
+       .get("/api/user_reviews/byUser/")
       .then((response) => {
         setReviews(response.data)
       })
@@ -45,7 +37,6 @@ const Review = () => {
    }, []);
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem("jwtToken");
     const payload = {
       rating,
       comment,
@@ -54,9 +45,7 @@ const Review = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/user_reviews/",payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post("/api/user_reviews/",payload);
       setPopup({ isOpen: true, message: "review added with success ", type: "success" });
     } catch (error) {
       console.error("Erreur lors de l'envoi:", error);
@@ -65,11 +54,8 @@ const Review = () => {
   };
   
   const deleteReview = (reviewId) => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .delete(`http://localhost:8080/api/user_goals/${reviewId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .delete(`/api/user_goals/${reviewId}`)
       .then(() => {
         setReviews(reviews.filter((review) => review.id !== reviewId))
       })

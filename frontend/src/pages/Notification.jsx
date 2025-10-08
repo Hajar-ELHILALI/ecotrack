@@ -11,11 +11,8 @@ const Notification = () => {
     fetchNotifications();
   }, []);
   const fetchNotifications = () => {
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get("http://localhost:8080/api/notifications/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/notifications/me")
       .then((response) => setNotifications(response.data))
       .catch((error) =>
         console.log("Erreur lors du chargement des notifications:", error)
@@ -27,12 +24,10 @@ const Notification = () => {
   };
 
   const handleNotificationClick2 = async (notification) => {
-    const token = localStorage.getItem("jwtToken");
     try {
       await axios.put(
-        "http://localhost:8080/api/notifications/",
-        { ...notification, read: true },
-        { headers: { Authorization: `Bearer ${token}` } }
+        "/api/notifications/",
+        { ...notification, read: true }
       );
       fetchNotifications();
     } catch (error) {
@@ -41,17 +36,13 @@ const Notification = () => {
   };
 
   const deleteNotification = (notificationId) => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .delete(`http://localhost:8080/api/notifications/${notificationId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .delete(`/api/notifications/${notificationId}`)
       .then(() => {
         setNotifications(notifications.filter((notification) => notification.id !== notificationId))
       })
       .catch((error) => console.log("Erreur lors de la suppression de notification:", error))
   }
-
 
   return (
     <div className="min-h-screen bg-gray-100">

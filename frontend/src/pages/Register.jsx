@@ -15,7 +15,7 @@ const Register = () => {
   const [popupType, setPopupType] = useState("")
 
   useEffect(()=> {
-    axios.get('http://localhost:8080/api/countries/')
+    axios.get('/api/countries/')
       .then(response => setCountries(response.data))
       .catch(error => console.log("Erreur lors du chargement du pays:", error));
   }, []);
@@ -23,15 +23,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/register",{
+      const response = await axios.post("/api/auth/register",{
         userName,
         email,
         password,
         countryId 
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
       });
       setPopupMessage("Registration successful!")
       setPopupType("success")

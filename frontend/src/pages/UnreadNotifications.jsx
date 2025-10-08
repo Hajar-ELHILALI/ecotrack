@@ -11,11 +11,8 @@ const UnreadNotifications = () => {
     fetchNotifications();
   }, []);
    const fetchNotifications = () => {
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get("http://localhost:8080/api/notifications/unread", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/notifications/unread")
       .then((response) => setNotifications(response.data))
       .catch((error) =>
         console.log("Erreur lors du chargement des notifications:", error)
@@ -27,12 +24,10 @@ const UnreadNotifications = () => {
   };
 
   const handleNotificationClick2 = async (notification) => {
-    const token = localStorage.getItem("jwtToken");
     try {
       await axios.put(
-        "http://localhost:8080/api/notifications/",
-        { ...notification, read: true },
-        { headers: { Authorization: `Bearer ${token}` } }
+        "/api/notifications/",
+        { ...notification, read: true }
       );
       fetchNotifications();
     } catch (error) {

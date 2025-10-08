@@ -12,10 +12,7 @@ const Badge = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("jwtToken");
-        const response = await axios.get("http://localhost:8080/api/user/", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get("/api/user/");
 
         const userDTO = response.data;
         if (userDTO && userDTO.badgeId !== undefined) {
@@ -36,13 +33,8 @@ const Badge = () => {
 
     const fetchBadge = async () => {
       try {
-        const token = localStorage.getItem("jwtToken");
         const response = await axios.get(
-          `http://localhost:8080/api/badges/${badgeId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+          `/api/badges/${badgeId}`);
 
         const badgeDTO = response.data;
         setBadge(badgeDTO);
@@ -71,7 +63,6 @@ const Badge = () => {
 
     fetchBadge();
   }, [badgeId]);
-
 
   if (loading) {
     return (

@@ -5,6 +5,8 @@ import EcoTrack.server.DTO.RegisterRequestDTO;
 import EcoTrack.server.DTO.UserDTO;
 import EcoTrack.server.service.UserService;
 import EcoTrack.server.service.implementation.TokenService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +34,23 @@ public class AuthController {
 
     @PostMapping("/login")
 
-    public ResponseEntity<String> login(@RequestBody AuthRequestDTO request) {
+    public ResponseEntity<String> login(@RequestBody AuthRequestDTO request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
         String token = tokenService.generateToken(authentication);
-        return ResponseEntity.ok(token);
+
+        Cookie jwtCookie = new Cookie("jwtToken", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(false);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(7 * 24 * 60 * 60);
+
+        response.addCookie(jwtCookie);
+
+        return ResponseEntity.ok("Login successful");
+
     }
 
     @PostMapping("/register")
@@ -48,5 +60,18 @@ public class AuthController {
             return ResponseEntity.badRequest().build();
         }
         return userService.register(registerRequestDTO);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        Cookie jwtCookie = new Cookie("jwtToken", null);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(false);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(0);
+
+        response.addCookie(jwtCookie);
+
+        return ResponseEntity.ok("Logout successful");
     }
 }

@@ -20,13 +20,8 @@ const Statistics = () => {
       setError(null);
 
       try {
-        const token = localStorage.getItem("jwtToken");
         const response = await axios.get(
-          `http://localhost:8080/api/scores/statistics?period=${period}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+          `/api/scores/statistics?period=${period}`);
         setStats(response.data);
       } catch (err) {
         console.error("Error loading statistics:", err);

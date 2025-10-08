@@ -20,10 +20,7 @@ const Advices = () => {
   };
 
   const fetchAdviceDetails = async (adviceId) => {
-    const token = localStorage.getItem("jwtToken");
-    const response = await axios.get(`http://localhost:8080/api/advices/${adviceId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const response = await axios.get(`/api/advices/${adviceId}`);
     return response.data; 
   };
 

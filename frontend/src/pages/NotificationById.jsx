@@ -8,11 +8,8 @@ const NotificationById = () => {
   const { id } = useParams(); 
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get(`http://localhost:8080/api/notifications/${id}`, {   
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/api/notifications/${id}`)
       .then((response) => setNotification(response.data))
       .catch((error) =>
         console.log("Erreur lors du chargement de la notification:", error)
