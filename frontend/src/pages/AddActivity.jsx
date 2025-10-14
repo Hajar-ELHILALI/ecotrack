@@ -19,28 +19,21 @@ const AddActivity = () => {
   const decrement = () => setNbrPersonnes((prev) => (prev > 1 ? prev - 1 : 1));
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get("http://localhost:8080/api/categories/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/categories/")
       .then((response) => setCategories(response.data))
       .catch((error) => console.log("Erreur lors du chargement des catégories:", error));
   }, []);
 
   useEffect(() => {
     if (!categoryType) return;
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get(`http://localhost:8080/api/activity-types/by-category/${categoryType}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/api/activity-types/by-category/${categoryType}`)
       .then((response) => setActivityTypes(response.data))
       .catch((error) => console.log("Erreur lors du chargement des types d'activité:", error));
   }, [categoryType]);
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem("jwtToken");
     const payload = {
       activityTypeName: name,
       nbrPersonnes,
@@ -50,9 +43,7 @@ const AddActivity = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/user_activities", payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post("/api/user_activities", payload);
       setPopup({ isOpen: true, message: "Activity added with success", type: "success" });
     } catch (error) {
       console.error("Erreur lors de l'envoi:", error);
@@ -143,8 +134,6 @@ const AddActivity = () => {
               placeholder="Date"
             />
           </div>
-
-
 
           <button
             type="button"

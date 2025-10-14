@@ -13,12 +13,9 @@ const Activities = () => {
   });
   
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-
+    
     axios
-      .get("http://localhost:8080/api/user/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/user/")
       .then((response) => {
         const userDTO = response.data;
         if (userDTO) setUserId(userDTO.id);
@@ -31,11 +28,8 @@ const Activities = () => {
   useEffect(() => {
     if (!userId) return;
 
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get(`http://localhost:8080/api/user_activities/byUser/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/api/user_activities/byUser/${userId}`)
       .then(async (response) => {
         const activities = response.data;
         
@@ -43,12 +37,10 @@ const Activities = () => {
           activities.map(async (activity) => {
             try {
               const typeResponse = await axios.get(
-                `http://localhost:8080/api/activity-types/${activity.activityTypeId}`,
-                { headers: { Authorization: `Bearer ${token}` } }
+                `/api/activity-types/${activity.activityTypeId}`
               );
               const categoryResponse = await axios.get(
-                `http://localhost:8080/api/categories/${typeResponse.data.categoryId}`,
-                { headers: { Authorization: `Bearer ${token}` } }
+                `/api/categories/${typeResponse.data.categoryId}`
               ) 
               return {
                 ...activity,
@@ -70,11 +62,8 @@ const Activities = () => {
   }, [userId]);
 
   const deleteActivity = (activityId) => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .delete(`http://localhost:8080/api/user_activities/${activityId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .delete(`/api/user_activities/${activityId}`)
       .then(() => {
         setUserActivities(userActivities.filter((activity) => activity.id !== activityId))
       })
@@ -91,8 +80,6 @@ const Activities = () => {
 };
 
 const handleUpdateActivity = async (activityId) => {
-  const token = localStorage.getItem("jwtToken");
-  
   const activityToUpdate = userActivities.find(a => a.id === activityId);
   const updatedActivity = {
     ...activityToUpdate,
@@ -105,7 +92,7 @@ const handleUpdateActivity = async (activityId) => {
 
   try {
     const response = await axios.put(
-      "http://localhost:8080/api/user_activities",
+      "/api/user_activities",
       updatedActivity,
       { headers: { Authorization: `Bearer ${token}` } }
     );

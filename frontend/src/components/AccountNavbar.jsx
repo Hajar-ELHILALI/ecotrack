@@ -10,11 +10,8 @@ const AccountNavbar = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
     axios
-      .get("http://localhost:8080/api/notifications/unread", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/notifications/unread")
       .then((response) => setNotifications(response.data))
       .catch((error) =>
         console.log("Erreur lors du chargement des notifications:", error)
@@ -27,6 +24,17 @@ const AccountNavbar = () => {
       document.body.style.overflow = 'auto';
     };
   }, [showMenu]);
+
+  const logout = () => {
+  axios.post("/api/auth/logout")
+    .then(() => {
+      setShowMenu(false);
+      setShowProfileMenu(false);
+      navigate("/login");
+    })
+    .catch((err) => console.log(err));
+};
+
 
   return (
     <>
@@ -58,11 +66,7 @@ const AccountNavbar = () => {
           <Link to="/badge">My badge</Link>
           <Link to="/review">Add review</Link>
           <button 
-            onClick={() => {
-              localStorage.removeItem("jwtToken");
-              setShowMenu(false);
-              navigate("/login");
-            }}
+            onClick={logout}
             className="text-left"
           >
             Sign out
@@ -98,11 +102,7 @@ const AccountNavbar = () => {
                 Account
               </Link>
               <button 
-                onClick={() => {
-                  localStorage.removeItem("jwtToken");
-                  setShowProfileMenu(false);
-                  navigate("/login");
-                }}
+                onClick={logout}
                 className="block px-4 py-2 hover:bg-gray-100 text-left w-full"
               >
                 Sign out

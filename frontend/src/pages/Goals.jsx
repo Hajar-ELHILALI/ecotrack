@@ -13,21 +13,15 @@ const Goals = () => {
   })
 
   useEffect(() => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .get("http://localhost:8080/api/user_goals", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get("/api/user_goals")
       .then((response) => setGoals(response.data))
       .catch((error) => console.log("Erreur lors du chargement des goals:", error))
   }, [])
 
   const deleteGoal = (goalId) => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .delete(`http://localhost:8080/api/user_goals/${goalId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .delete(`/api/user_goals/${goalId}`)
       .then(() => {
         setGoals(goals.filter((goal) => goal.id !== goalId))
       })
@@ -52,11 +46,8 @@ const Goals = () => {
   }
 
   const saveUpdate = (goalId) => {
-    const token = localStorage.getItem("jwtToken")
     axios
-      .put(`http://localhost:8080/api/user_goals`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .put(`/api/user_goals`, formData)
       .then((response) => {
         setGoals(goals.map((g) => (g.id === goalId ? response.data : g)))
         setEditingGoal(null)

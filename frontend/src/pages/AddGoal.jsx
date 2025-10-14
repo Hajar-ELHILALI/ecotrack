@@ -17,7 +17,6 @@ const AddGoal = () => {
     });
     return;
   }
-    const token = localStorage.getItem("jwtToken");
     const payload = {
       startDate,
       endDate,
@@ -26,9 +25,7 @@ const AddGoal = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/user_goals", payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post("/api/user_goals", payload);
       setPopup({ isOpen: true, message: "Goal saved with success", type: "success" });
     } catch (error) {
       console.error("Erreur lors de l'envoi:", error);
@@ -38,8 +35,6 @@ const AddGoal = () => {
 
   return (
     <div className="flex flex-col justify-center gap-4 mt-4 items-center w-96 h-96 shadow-xl ml-96">
-     
-
       <h2 className="text-orange-600 font-bold text-lg underline">Add goal</h2>
       <div>
             <label className="mb-1 text-orange-600 font-medium mr-2">Start Date:</label>

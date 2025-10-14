@@ -62,7 +62,7 @@ INSERT INTO users_activities (quantity, date, sharing_type, nbr_personnes, activ
                                                                                                           (5000.0, '2023-11-05', 'SOLO', 1, 5, 5);
 
 -- 10. Insertion des scores
-INSERT INTO scores (qualitative_score, totalco2, user_id, userActivity_id) VALUES
+INSERT INTO scores (qualitative_score, totalco2, user_id, user_activity_id) VALUES
                                                                                ('GOOD', 85.2, 1, 1),
                                                                                ('EXCELLENT', 42.1, 2, 2),
                                                                                ('AVERAGE', 120.7, 3, 3),
