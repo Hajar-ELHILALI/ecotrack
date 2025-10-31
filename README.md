@@ -50,19 +50,19 @@ It’s an all-in-one platform to **measure, improve, and celebrate** sustainable
 
 ##  Getting Started
 
-### 🧩 Setup and Run EcoTrack
+###  Setup and Run EcoTrack
 
 ```bash
-# 1️⃣ Clone the repository
+# 1️ Clone the repository
 git clone https://github.com/YasmineKoulam/EcoTrack.git
 cd EcoTrack
 
-# 2️⃣ Build and run the app using Docker Compose
+# 2️ Build and run the app using Docker Compose
 docker-compose up --build
 
-# 3️⃣ Access the app from your browser
+# 3️ Access the app from your browser
 # Par défaut :
-# 👉 http://localhost:8080
+#  http://localhost:8080
 # (le port est défini dans docker-compose.yml)
 
 
