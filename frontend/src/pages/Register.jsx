@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { loginBackground } from '../assets'
+import {useNavigate} from 'react-router-dom';
 import InputField from '../components/InputField'
 import Popup from '../components/Popup'
 import axios from 'axios'
@@ -13,6 +14,8 @@ const Register = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [popupMessage, setPopupMessage] = useState("")
   const [popupType, setPopupType] = useState("")
+
+  const navigate = useNavigate();
 
   useEffect(()=> {
     axios.get('/api/countries/')
@@ -29,15 +32,19 @@ const Register = () => {
         password,
         countryId 
       });
-      setPopupMessage("Registration successful!")
-      setPopupType("success")
-      setShowPopup(true)
-      console.log(response.data);
-
-      setUserName("");
-      setEmail("");
-      setPassword("");
-      setCountryId("");
+        setPopupMessage("Registration successful!")
+        setPopupType("success")
+        setShowPopup(true)
+    
+      const loginResponse = await axios.post(
+        "/api/auth/login",
+        { email, password }
+      )
+      if (loginResponse.status === 200) {       
+        setTimeout(() => {
+          navigate('/homePage');
+        }, 1000);
+    }
     } catch(error){
       let errorMessage = "Registration failed!";
     
