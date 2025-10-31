@@ -43,8 +43,8 @@ It’s an all-in-one platform to **measure, improve, and celebrate** sustainable
 
 ##  Technologies Used
 
-- **Front-end:** HTML, CSS, JavaScript
-- **Back-end:** Spring Boot
+- **Front-end:** React.js, Axios, TailwindCSS, Recharts
+- **Back-end:** Spring Boot (API REST), Spring Security avec JWT
 - **Containerization:** Docker & Docker Compose
 - **Database:** PostgreSQL
 
