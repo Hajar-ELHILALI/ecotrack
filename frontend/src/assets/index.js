@@ -14,7 +14,8 @@ import welcome from './images/welcome.png'
 import target from './images/target.png'
 import planetHero from './images/planetHero.png'
 import notification from './icons/notification.png'
-
+import badge from './images/badge.png'
+import satisfaction from './images/satisfaction.png'
 
 export {
   menu,
@@ -32,7 +33,9 @@ export {
   welcome,
   target,
   planetHero,
-  notification
+  notification,
+  badge,
+  satisfaction
 };
 
 

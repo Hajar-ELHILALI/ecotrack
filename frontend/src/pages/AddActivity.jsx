@@ -33,6 +33,13 @@ const AddActivity = () => {
       .catch((error) => console.log("Erreur lors du chargement des types d'activité:", error));
   }, [categoryType]);
 
+  useEffect(() => {
+     if (sharingType === "SOLO") {
+       setNbrPersonnes(1);
+     }
+   }, [sharingType]);
+
+
   const handleSubmit = async () => {
     const payload = {
       activityTypeName: name,
@@ -86,6 +93,7 @@ const AddActivity = () => {
             labelKey="name"
           />
 
+          {sharingType !== 'SOLO' && 
           <div className="flex items-center gap-2">
             <label className="mb-1 block text-orange-600 font-medium">Share whith: </label>
             <button
@@ -110,6 +118,8 @@ const AddActivity = () => {
               +
             </button>
           </div>
+          }
+          
 
           <div>
             <label className="mb-1 block text-orange-600 font-medium">Quantity: Kg, Km,...</label>
@@ -130,7 +140,7 @@ const AddActivity = () => {
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-24 text-center text-orange-800 border border-green-600 rounded p-1"
+              className="w-32 text-center text-orange-800 border border-green-600 rounded p-1 mr-2"
               placeholder="Date"
             />
           </div>

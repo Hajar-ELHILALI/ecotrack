@@ -12,10 +12,7 @@ const Advices = () => {
   }, []);
 
   const fetchAdvices = async () => {
-    const token = localStorage.getItem("jwtToken");
-    const response = await axios.get("http://localhost:8080/api/historic-advice/me", {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const response = await axios.get("/api/historic-advice/me");
     return response.data; 
   };
 
