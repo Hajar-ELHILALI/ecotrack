@@ -2,7 +2,9 @@
 
 **EcoTrack** is a smart web application designed to help users monitor and reduce their daily carbon footprint.  
 Built with 💚 love for the planet.
-![img.png](login.png)
+<p align="center">
+  <img src="img/login.png" alt="EcoTrack Interface" width="85%">
+</p>
 ---
 
 ##  Overview
